@@ -2,6 +2,7 @@ import { Colors } from "@/assets/Colors";
 import { Image, StatusBar, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { useFonts, Montserrat_700Bold } from "@expo-google-fonts/montserrat"
 import { Lato_400Regular } from "@expo-google-fonts/lato"
+import { router } from "expo-router";
 
 export default function WelcomeScreen() {
   let [fontsLoaded] = useFonts({
@@ -36,7 +37,7 @@ export default function WelcomeScreen() {
         </View>
         <TouchableOpacity
             style={styles.button}
-            onPress={() => {}}
+            onPress={() => {router.navigate("/login")}}
         >
             <Text style={styles.buttonText}>Get Started</Text>
         </TouchableOpacity>
