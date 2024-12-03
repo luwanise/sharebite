@@ -43,7 +43,7 @@ export default function LoginScreen() {
             </TouchableOpacity>
             <View style={styles.registerContainer}>
                 <Text style={styles.text}>Don't have an account?</Text>
-                <Link href={"/signUp"} style={styles.register}>Register</Link>
+                <Link href={"/signup"} style={styles.register}>Register</Link>
             </View>
             <CustomOrSeparator />
             <TouchableOpacity style={styles.googleButton} onPress={() => {}}>
