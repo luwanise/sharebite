@@ -1,18 +1,8 @@
 import { Colors } from "@/assets/Colors";
 import { Image, StatusBar, StyleSheet, Text, TouchableOpacity, View } from "react-native";
-import { useFonts, Montserrat_700Bold } from "@expo-google-fonts/montserrat"
-import { Lato_400Regular } from "@expo-google-fonts/lato"
 import { router } from "expo-router";
 
 export default function WelcomeScreen() {
-  let [fontsLoaded] = useFonts({
-    Montserrat_700Bold,
-    Lato_400Regular
-  });
-
-  if (!fontsLoaded) {
-    return null;
-  }
 
   return (
     <View style={styles.container}>
