@@ -1,4 +1,4 @@
-import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { Image, StyleSheet, Text, TouchableOpacity, View, ScrollView, KeyboardAvoidingView, Platform, } from "react-native";
 import { Colors } from "@/assets/Colors";
 import { CustomTextInput } from "@/components/CustomTextInput";
 import { useState } from "react";
@@ -7,85 +7,93 @@ import { router } from "expo-router";
 import { Dimens } from "@/assets/Dimens";
 
 export default function SignUpScreen() {
-    const [name, setName] = useState("");
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
-    const [confirmPassword, setConfirmPassword] = useState("");
-    
-    return (
-        <View style={styles.container}>
-            <TouchableOpacity style={styles.backButton} onPress={() => {router.back()}} >
-                <Ionicons name="arrow-back" size={24} color={Colors.background_1} />
-            </TouchableOpacity>
-            <View style={styles.headerContainer}>
-                <Text style={styles.header}>Join the{"\n"}Movement!</Text>
-                <Image
-                    style={styles.signupImage}
-                    source={require("../../assets/images/design-resources/signup_image.png")}
-                />
-            </View>
-            <View style={styles.textInputContainer}>
-                <CustomTextInput
-                    label="Name"
-                    value={name}
-                    onChangeText={setName}
-                    placeholder="Enter your name"
-                />
-                <CustomTextInput
-                    label="Email"
-                    value={email}
-                    onChangeText={setEmail}
-                    placeholder="Enter your email"
-                />
-                <CustomTextInput
-                    label="Password"
-                    value={password}
-                    onChangeText={setPassword}
-                    placeholder="Enter your password"
-                    secureTextEntry={true}
-                />
-                <CustomTextInput
-                    label="Confirm Password"
-                    value={confirmPassword}
-                    onChangeText={setConfirmPassword}
-                    placeholder="Confirm password"
-                    secureTextEntry={true}
-                />
-            </View>
-            <TouchableOpacity
-                style={styles.button}
-                onPress={() => {}}
-            >
-                <Text style={styles.buttonText}>Sign Up</Text>
-            </TouchableOpacity>
-            <View style={styles.separatorContainer}>
-                <View style={styles.line} />
-                <Text style={styles.orText}>OR</Text>
-                <View style={styles.line} />
-            </View>
-            <TouchableOpacity style={styles.googleButton} onPress={() => {}}>
-                <Ionicons name="logo-google" size={24} color={Colors.primary_2} />
-                <Text style={styles.googleButtonText}>Sign Up with Google</Text>
-            </TouchableOpacity>
+const [name, setName] = useState("");
+const [email, setEmail] = useState("");
+const [password, setPassword] = useState("");
+const [confirmPassword, setConfirmPassword] = useState("");
+
+return (
+    <KeyboardAvoidingView
+    behavior={Platform.OS === "ios" ? "padding" : "height"}
+    style={styles.container}
+    >
+    <ScrollView
+        contentContainerStyle={styles.scrollContainer}
+        keyboardShouldPersistTaps="handled"
+    >
+        <TouchableOpacity style={styles.backButton} onPress={() => router.back()}>
+        <Ionicons name="arrow-back" size={24} color={Colors.background_1} />
+        </TouchableOpacity>
+        <View style={styles.headerContainer}>
+            <Text style={styles.header}>Join the{"\n"}Movement!</Text>
+            <Image
+                style={styles.signupImage}
+                source={require("../../assets/images/design-resources/signup_image.png")}
+            />
         </View>
-    )
+        <View style={styles.textInputContainer}>
+        <CustomTextInput
+            label="Name"
+            value={name}
+            onChangeText={setName}
+            placeholder="Enter your name"
+        />
+        <CustomTextInput
+            label="Email"
+            value={email}
+            onChangeText={setEmail}
+            placeholder="Enter your email"
+        />
+        <CustomTextInput
+            label="Password"
+            value={password}
+            onChangeText={setPassword}
+            placeholder="Enter your password"
+            secureTextEntry
+        />
+        <CustomTextInput
+            label="Confirm Password"
+            value={confirmPassword}
+            onChangeText={setConfirmPassword}
+            placeholder="Confirm password"
+            secureTextEntry
+        />
+        </View>
+        <TouchableOpacity style={styles.button} onPress={() => {}}>
+        <Text style={styles.buttonText}>Sign Up</Text>
+        </TouchableOpacity>
+        <View style={styles.separatorContainer}>
+        <View style={styles.line} />
+        <Text style={styles.orText}>OR</Text>
+        <View style={styles.line} />
+        </View>
+        <TouchableOpacity style={styles.googleButton} onPress={() => {}}>
+        <Ionicons name="logo-google" size={24} color={Colors.background_2} />
+        <Text style={styles.googleButtonText}>Sign Up with Google</Text>
+        </TouchableOpacity>
+    </ScrollView>
+    </KeyboardAvoidingView>
+);
 }
 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        alignItems: "center",
-        justifyContent: "space-evenly",
         backgroundColor: Colors.primary_1,
-        paddingHorizontal: Dimens.padding
+    },
+    scrollContainer: {
+        flexGrow: 1,
+        justifyContent: "center",
+        alignItems: "center",
+        padding: 20,
     },
     backButton: {
         position: "absolute",
         top: 30,
-        left: 20
+        left: 20,
     },
     headerContainer: {
-        marginTop: 50,
+        marginTop: 30,
         flexDirection: "row",
         alignItems: "center",
         justifyContent: "center",
@@ -104,18 +112,19 @@ const styles = StyleSheet.create({
     },
     textInputContainer: {
         width: "100%",
-        paddingTop: Dimens.padding,
-        paddingBottom: 30,
-        gap: Dimens.padding,
-        borderRadius: 20,
         backgroundColor: Colors.background_1,
+        borderRadius: 20,
+        marginTop: Dimens.padding,
+        paddingVertical: Dimens.padding,
+        gap: Dimens.padding,
     },
     button: {
-        width: "75%",
+        width: "80%",
         padding: 15,
         borderRadius: Dimens.buttonBorderRadius,
         backgroundColor: Colors.background_1,
         alignItems: "center",
+        marginTop: 20,
     },
     buttonText: {
         color: Colors.primary_1,
@@ -123,9 +132,10 @@ const styles = StyleSheet.create({
         fontFamily: "Montserrat_700Bold",
     },
     separatorContainer: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        marginHorizontal: 20,
+        flexDirection: "row",
+        alignItems: "center",
+        width: "80%",
+        marginVertical: 10,
     },
     line: {
         flex: 1,
@@ -139,19 +149,19 @@ const styles = StyleSheet.create({
     },
     googleButton: {
         flexDirection: "row",
-        gap: 10,
-        width: "75%",
+        width: "80%",
         padding: 15,
         borderRadius: Dimens.buttonBorderRadius,
-        borderColor: Colors.primary_2,
+        borderColor: Colors.background_2,
+        backgroundColor: Colors.primary_2,
         borderWidth: 1,
-        backgroundColor: Colors.background_2,
         alignItems: "center",
-        justifyContent: "center"
+        justifyContent: "center",
     },
     googleButtonText: {
         fontSize: 16,
         fontFamily: "Lato_400Regular",
-        color: Colors.primary_2,
-    }
-})
+        color: Colors.background_2,
+        marginLeft: 10,
+    },
+});
