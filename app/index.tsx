@@ -27,7 +27,7 @@ export default function WelcomeScreen() {
         </View>
         <TouchableOpacity
             style={styles.button}
-            onPress={() => {router.navigate("/login")}}
+            onPress={() => {router.navigate("/auth/login")}}
         >
             <Text style={styles.buttonText}>Get Started</Text>
         </TouchableOpacity>

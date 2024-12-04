@@ -20,7 +20,7 @@ export default function SignUpScreen() {
                 <Text style={styles.header}>Join the{"\n"}Movement!</Text>
                 <Image
                     style={styles.signupImage}
-                    source={require("../assets/images/design-resources/signup_image.png")}
+                    source={require("../../assets/images/design-resources/signup_image.png")}
                 />
             </View>
             <View style={styles.textInputContainer}>

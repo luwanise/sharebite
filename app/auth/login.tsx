@@ -16,7 +16,7 @@ export default function LoginScreen() {
                 <Text style={styles.header}>Welcome{"\n"}Back!</Text>
                 <Image
                     style={styles.loginImage}
-                    source={require("../assets/images/design-resources/login_image.png")}
+                    source={require("../../assets/images/design-resources/login_image.png")}
                 />
             </View>
             <View style={styles.textInputContainer}>
@@ -34,7 +34,7 @@ export default function LoginScreen() {
                     secureTextEntry={true}
                 />
             </View>
-            <Link href={"/forgotPassword"} style={styles.forgotPassword}>Forgot Password?</Link>
+            <Link href={"/auth/forgot-password/forgotPassword"} style={styles.forgotPassword}>Forgot Password?</Link>
             <TouchableOpacity
                 style={styles.button}
                 onPress={() => {}}
@@ -43,7 +43,7 @@ export default function LoginScreen() {
             </TouchableOpacity>
             <View style={styles.registerContainer}>
                 <Text style={styles.text}>Don't have an account?</Text>
-                <Link href={"/signup"} style={styles.register}>Register</Link>
+                <Link href={"/auth/signup"} style={styles.register}>Register</Link>
             </View>
             <CustomOrSeparator />
             <TouchableOpacity style={styles.googleButton} onPress={() => {}}>
