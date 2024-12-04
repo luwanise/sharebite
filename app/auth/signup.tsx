@@ -65,9 +65,12 @@ const signUpUser = () => {
     createUserWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
         // Signed up
-        const user = userCredential.user;
         setLoading(false);
-        //..
+        const userId = userCredential.user.uid;
+        router.replace({
+            "pathname": "/home",
+            "params": { "userId": userId }
+        });
     })
     .catch((error) => {
         setLoading(false);
