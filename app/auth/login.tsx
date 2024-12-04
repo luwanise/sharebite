@@ -5,6 +5,7 @@ import { useState } from "react";
 import { CustomOrSeparator } from "@/components/CustomOrSeparator";
 import { Link } from "expo-router";
 import IonIcons from "@expo/vector-icons/Ionicons";
+import { Dimens } from "@/assets/Dimens";
 
 export default function LoginScreen() {
     const [email, setEmail] = useState("");
@@ -65,10 +66,10 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         alignItems: "center",
         justifyContent: "center",
-        padding: 20,
+        padding: Dimens.padding,
     },
     header: {
-        fontSize: 23,
+        fontSize: Dimens.headerSize,
         fontFamily: "Montserrat_700Bold",
         marginEnd: 10,
         textAlign: 'center',
@@ -80,25 +81,25 @@ const styles = StyleSheet.create({
     },
     textInputContainer: {
         width: "100%",
-        gap: 20,
+        gap: Dimens.padding,
     },
     forgotPassword: {
         width: "100%",
-        paddingStart: 20,
+        paddingStart: Dimens.padding,
         color: Colors.primary_1,
-        fontSize: 16,
+        fontSize: Dimens.bodySize,
         fontFamily: "Lato_400Regular",
     },
     button: {
         width: "70%",
         padding: 15,
-        borderRadius: 10,
+        borderRadius: Dimens.buttonBorderRadius,
         backgroundColor: Colors.primary_1,
         alignItems: "center",
     },
     buttonText: {
         color: "white",
-        fontSize: 20,
+        fontSize: Dimens.buttonText,
         fontFamily: "Montserrat_700Bold",
     },
     registerContainer: {
@@ -108,12 +109,12 @@ const styles = StyleSheet.create({
         gap: 5,
     },
     text: {
-        fontSize: 16,
+        fontSize: Dimens.bodySize,
         fontFamily: "Lato_400Regular",
     },
     register: {
         color: Colors.primary_2,
-        fontSize: 16,
+        fontSize: Dimens.bodySize,
         fontFamily: "Lato_400Regular",
     },
     googleButton: {
@@ -121,7 +122,7 @@ const styles = StyleSheet.create({
         gap: 10,
         width: "70%",
         padding: 15,
-        borderRadius: 10,
+        borderRadius: Dimens.buttonBorderRadius,
         borderColor: Colors.primary_2,
         borderWidth: 1,
         backgroundColor: Colors.background_2,

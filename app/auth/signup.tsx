@@ -4,6 +4,7 @@ import { CustomTextInput } from "@/components/CustomTextInput";
 import { useState } from "react";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { router } from "expo-router";
+import { Dimens } from "@/assets/Dimens";
 
 export default function SignUpScreen() {
     const [name, setName] = useState("");
@@ -76,7 +77,7 @@ const styles = StyleSheet.create({
         alignItems: "center",
         justifyContent: "space-evenly",
         backgroundColor: Colors.primary_1,
-        paddingHorizontal: 20
+        paddingHorizontal: Dimens.padding
     },
     backButton: {
         position: "absolute",
@@ -90,7 +91,7 @@ const styles = StyleSheet.create({
         justifyContent: "center",
     },
     header: {
-        fontSize: 23,
+        fontSize: Dimens.headerSize,
         color: Colors.background_1,
         fontFamily: "Montserrat_700Bold",
         marginEnd: 10,
@@ -103,21 +104,22 @@ const styles = StyleSheet.create({
     },
     textInputContainer: {
         width: "100%",
-        paddingVertical: 20,
-        gap: 20,
+        paddingTop: Dimens.padding,
+        paddingBottom: 30,
+        gap: Dimens.padding,
         borderRadius: 20,
         backgroundColor: Colors.background_1,
     },
     button: {
         width: "75%",
         padding: 15,
-        borderRadius: 10,
+        borderRadius: Dimens.buttonBorderRadius,
         backgroundColor: Colors.background_1,
         alignItems: "center",
     },
     buttonText: {
         color: Colors.primary_1,
-        fontSize: 20,
+        fontSize: Dimens.buttonText,
         fontFamily: "Montserrat_700Bold",
     },
     separatorContainer: {
@@ -140,7 +142,7 @@ const styles = StyleSheet.create({
         gap: 10,
         width: "75%",
         padding: 15,
-        borderRadius: 10,
+        borderRadius: Dimens.buttonBorderRadius,
         borderColor: Colors.primary_2,
         borderWidth: 1,
         backgroundColor: Colors.background_2,
