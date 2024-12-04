@@ -45,7 +45,7 @@ export default function forgotPassword() {
                     </View>
                     <TouchableOpacity
                         style={styles.button}
-                        onPress={() => { setVisible(true); }}
+                        onPress={() => { router.replace("/auth/forgot-password/PasswordReset") }}
                     >
                         <Text style={styles.buttonText}>Send me the magic link!</Text>
                     </TouchableOpacity>
