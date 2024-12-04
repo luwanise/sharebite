@@ -1,4 +1,4 @@
-import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { Image, ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { Colors } from "@/assets/Colors";
 import { CustomTextInput } from "@/components/CustomTextInput";
 import { useState } from "react";
@@ -12,7 +12,7 @@ export default function LoginScreen() {
     const [password, setPassword] = useState("");
     
     return (
-        <View style={styles.container}>
+        <ScrollView contentContainerStyle={styles.container}>
             <View style={styles.headerContainer}>
                 <Text style={styles.header}>Welcome{"\n"}Back!</Text>
                 <Image
@@ -51,7 +51,7 @@ export default function LoginScreen() {
                 <IonIcons name="logo-google" size={24} color={Colors.primary_2} />
                 <Text style={styles.googleButtonText}>Sign Up with Google</Text>
             </TouchableOpacity>
-        </View>
+        </ScrollView>
     )
 }
 
