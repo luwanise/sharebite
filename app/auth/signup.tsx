@@ -5,6 +5,7 @@ import { useState } from "react";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { router } from "expo-router";
 import { Dimens } from "@/assets/Dimens";
+import { ToastAndroid } from "react-native";;
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth } from "@/firebaseConfig";
 
@@ -15,12 +16,50 @@ const [password, setPassword] = useState("");
 const [confirmPassword, setConfirmPassword] = useState("");
 const [loading, setLoading] = useState(false);
 
-const validatePasswordsMatch = () => {
-    if (password !== confirmPassword) {
-        return false;
-    }
-    return true;
+const validateName = () => {
+    return name.length > 0;
 }
+
+const validateEmail = () => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+}
+
+const validatePassword = () => {
+    const passwordRegex = /^(?=.*\d)[A-Za-z\d@$!%*?&]{8,}$/;
+    return passwordRegex.test(password);
+};
+
+const validatePasswordsMatch = () => {
+    return password === confirmPassword;
+}
+
+const validateForm = () => {
+  if (!validateName()) {
+    setLoading(false);
+    ToastAndroid.show('Please enter your name', ToastAndroid.LONG);
+    return false;
+  }
+
+  if (!validateEmail()) {
+    setLoading(false);
+    ToastAndroid.show("Please enter a valid email", ToastAndroid.LONG);
+    return false;
+  }
+
+  if (!validatePassword()) {
+    setLoading(false);
+    ToastAndroid.show('Password must be at least 8 characters long and contain at least one digit.', ToastAndroid.LONG);
+    return false;
+  }
+
+  if (!validatePasswordsMatch()) {
+    setLoading(false);
+    ToastAndroid.show("Passwords do not match", ToastAndroid.LONG);
+    return false;
+  }
+
+  return true;};
 
 const signUpUser = () => {
     createUserWithEmailAndPassword(auth, email, password)
@@ -31,21 +70,21 @@ const signUpUser = () => {
         //..
     })
     .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
         setLoading(false);
-        Alert.alert(errorMessage);
-    });
+        if (error.code === 'auth/email-already-in-use') {
+            ToastAndroid.show('Email already in use', ToastAndroid.LONG);
+        } else {
+            ToastAndroid.show(`An error occurred: ${error.message}`, ToastAndroid.LONG);
+        }
+});
 }
 
 const handleSignUp = () => {
     setLoading(true);
-    if (validatePasswordsMatch()) {
-        signUpUser();
-    } else {
-        setLoading(false);
-        Alert.alert("Passwords do not match");
+    if (!validateForm()) {
+        return;
     }
+    signUpUser();
 }
 
 return (
