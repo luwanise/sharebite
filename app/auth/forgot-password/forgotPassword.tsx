@@ -5,9 +5,11 @@ import { Colors } from "@/assets/Colors";
 import { Dimens } from "@/assets/Dimens";
 import { CustomTextInput } from "@/components/CustomTextInput";
 import { useState } from "react";
+import PasswordResetErrorAlert from "@/components/PasswordResetErrorAlert";
 
 export default function forgotPassword() {
     const [email, setEmail] = useState("");
+    const [visible, setVisible] = useState(true);
 
     return (
         <View style={styles.container}>
@@ -31,10 +33,11 @@ export default function forgotPassword() {
                 />
             <TouchableOpacity
                 style={styles.button}
-                onPress={() => {}}
+                onPress={() => {setVisible(true)}}
             >
                 <Text style={styles.buttonText}>Send me the magic link!</Text>
             </TouchableOpacity>
+            <PasswordResetErrorAlert visible={visible} setVisible={setVisible}/>
         </View>
     )
 }
