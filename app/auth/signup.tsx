@@ -1,77 +1,118 @@
-import { Image, StyleSheet, Text, TouchableOpacity, View, ScrollView, KeyboardAvoidingView, Platform, } from "react-native";
+import { Image, StyleSheet, Text, TouchableOpacity, View, ScrollView, KeyboardAvoidingView, Platform, Alert, ActivityIndicator, } from "react-native";
 import { Colors } from "@/assets/Colors";
 import { CustomTextInput } from "@/components/CustomTextInput";
 import { useState } from "react";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { router } from "expo-router";
 import { Dimens } from "@/assets/Dimens";
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import { auth } from "@/firebaseConfig";
 
 export default function SignUpScreen() {
 const [name, setName] = useState("");
 const [email, setEmail] = useState("");
 const [password, setPassword] = useState("");
 const [confirmPassword, setConfirmPassword] = useState("");
+const [loading, setLoading] = useState(false);
+
+const validatePasswordsMatch = () => {
+    if (password !== confirmPassword) {
+        return false;
+    }
+    return true;
+}
+
+const signUpUser = () => {
+    createUserWithEmailAndPassword(auth, email, password)
+    .then((userCredential) => {
+        // Signed up
+        const user = userCredential.user;
+        setLoading(false);
+        //..
+    })
+    .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        setLoading(false);
+        Alert.alert(errorMessage);
+    });
+}
+
+const handleSignUp = () => {
+    setLoading(true);
+    if (validatePasswordsMatch()) {
+        signUpUser();
+    } else {
+        setLoading(false);
+        Alert.alert("Passwords do not match");
+    }
+}
 
 return (
     <KeyboardAvoidingView
-    behavior={Platform.OS === "ios" ? "padding" : "height"}
-    style={styles.container}
+        behavior={Platform.OS === "ios" ? "padding" : "height"}
+        style={styles.container}
     >
-    <ScrollView
-        contentContainerStyle={styles.scrollContainer}
-        keyboardShouldPersistTaps="handled"
-    >
-        <TouchableOpacity style={styles.backButton} onPress={() => router.back()}>
-        <Ionicons name="arrow-back" size={24} color={Colors.background_1} />
-        </TouchableOpacity>
-        <View style={styles.headerContainer}>
-            <Text style={styles.header}>Join the{"\n"}Movement!</Text>
-            <Image
-                style={styles.signupImage}
-                source={require("../../assets/images/design-resources/signup_image.png")}
+        <ScrollView
+            contentContainerStyle={styles.scrollContainer}
+            keyboardShouldPersistTaps="handled"
+        >
+            <TouchableOpacity style={styles.backButton} onPress={() => router.back()}>
+                <Ionicons name="arrow-back" size={24} color={Colors.background_1} />
+            </TouchableOpacity>
+            <View style={styles.headerContainer}>
+                <Text style={styles.header}>Join the{"\n"}Movement!</Text>
+                <Image
+                    style={styles.signupImage}
+                    source={require("../../assets/images/design-resources/signup_image.png")}
+                />
+            </View>
+            <View style={styles.textInputContainer}>
+            <CustomTextInput
+                label="Name"
+                value={name}
+                onChangeText={setName}
+                placeholder="Enter your name"
             />
-        </View>
-        <View style={styles.textInputContainer}>
-        <CustomTextInput
-            label="Name"
-            value={name}
-            onChangeText={setName}
-            placeholder="Enter your name"
-        />
-        <CustomTextInput
-            label="Email"
-            value={email}
-            onChangeText={setEmail}
-            placeholder="Enter your email"
-        />
-        <CustomTextInput
-            label="Password"
-            value={password}
-            onChangeText={setPassword}
-            placeholder="Enter your password"
-            secureTextEntry
-        />
-        <CustomTextInput
-            label="Confirm Password"
-            value={confirmPassword}
-            onChangeText={setConfirmPassword}
-            placeholder="Confirm password"
-            secureTextEntry
-        />
-        </View>
-        <TouchableOpacity style={styles.button} onPress={() => {}}>
-        <Text style={styles.buttonText}>Sign Up</Text>
-        </TouchableOpacity>
-        <View style={styles.separatorContainer}>
-        <View style={styles.line} />
-        <Text style={styles.orText}>OR</Text>
-        <View style={styles.line} />
-        </View>
-        <TouchableOpacity style={styles.googleButton} onPress={() => {}}>
-        <Ionicons name="logo-google" size={24} color={Colors.background_2} />
-        <Text style={styles.googleButtonText}>Sign Up with Google</Text>
-        </TouchableOpacity>
-    </ScrollView>
+            <CustomTextInput
+                label="Email"
+                value={email}
+                onChangeText={setEmail}
+                placeholder="Enter your email"
+            />
+            <CustomTextInput
+                label="Password"
+                value={password}
+                onChangeText={setPassword}
+                placeholder="Enter your password"
+                secureTextEntry
+            />
+            <CustomTextInput
+                label="Confirm Password"
+                value={confirmPassword}
+                onChangeText={setConfirmPassword}
+                placeholder="Confirm password"
+                secureTextEntry
+            />
+            </View>
+            <TouchableOpacity style={styles.button} onPress={() => {handleSignUp()}}>
+                <Text style={styles.buttonText}>Sign Up</Text>
+            </TouchableOpacity>
+            <View style={styles.separatorContainer}>
+                <View style={styles.line} />
+                <Text style={styles.orText}>OR</Text>
+                <View style={styles.line} />
+            </View>
+            <TouchableOpacity style={styles.googleButton} onPress={() => {}}>
+                <Ionicons name="logo-google" size={24} color={Colors.background_2} />
+                <Text style={styles.googleButtonText}>Sign Up with Google</Text>
+            </TouchableOpacity>
+        </ScrollView>
+        {loading && (
+            <View style={styles.loaderContainer}>
+                <ActivityIndicator size="large" color={Colors.primary_2} />
+            </View>
+        )}
     </KeyboardAvoidingView>
 );
 }
@@ -163,5 +204,11 @@ const styles = StyleSheet.create({
         fontFamily: "Lato_400Regular",
         color: Colors.background_2,
         marginLeft: 10,
+    },
+    loaderContainer: {
+        ...StyleSheet.absoluteFillObject,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: 'rgba(255, 255, 255, 0.6)',
     },
 });
