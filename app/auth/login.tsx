@@ -15,7 +15,7 @@ export default function LoginScreen() {
     const [loading, setLoading] = useState(false);
 
     const validateEmail = () => {
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i;
         return emailRegex.test(email);
     }
     

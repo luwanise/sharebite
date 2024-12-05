@@ -21,7 +21,7 @@ const validateName = () => {
 }
 
 const validateEmail = () => {
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i;
     return emailRegex.test(email);
 }
 
@@ -77,6 +77,8 @@ const signUpUser = () => {
         setLoading(false);
         if (error.code === 'auth/email-already-in-use') {
             ToastAndroid.show('Email already in use', ToastAndroid.LONG);
+        } else if (error.code === 'auth/network-request-failed') {
+            ToastAndroid.show('Looks like we’re having trouble connecting. Please check your internet connection and try again!', ToastAndroid.LONG);
         } else {
             ToastAndroid.show(`An error occurred: ${error.message}`, ToastAndroid.LONG);
         }
