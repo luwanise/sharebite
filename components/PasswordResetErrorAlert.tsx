@@ -6,18 +6,17 @@ import { Modal, View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 interface PasswordResetErrorAlertProps {
   visible: boolean;
   setVisible: React.Dispatch<React.SetStateAction<boolean>>;
+  errorMessage: string;
 }
 
-const PasswordResetErrorAlert: React.FC<PasswordResetErrorAlertProps> = ({ visible, setVisible }) => {
+const PasswordResetErrorAlert: React.FC<PasswordResetErrorAlertProps> = ({ visible, setVisible, errorMessage }) => {
 
   return (
     <Modal visible={visible} transparent={true}>
       <View style={styles.modalContainer}>
         <View style={styles.alertContainer}>
           <Text style={styles.title}>Uh-oh, something went wrong!</Text>
-          <Text style={styles.message}>
-            It's not you, it's us. We couldn’t find that email. Double-check and give it another shot!
-          </Text>
+          <Text style={styles.message}> {errorMessage} </Text>
           <TouchableOpacity style={styles.button} onPress={() => setVisible(false)}>
             <Text style={styles.buttonText}>Try again</Text>
           </TouchableOpacity>

@@ -1,4 +1,4 @@
-import { Image, KeyboardAvoidingView, Platform, ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { ActivityIndicator, Image, KeyboardAvoidingView, Platform, ScrollView, StyleSheet, Text, ToastAndroid, TouchableOpacity, View } from "react-native";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { router } from "expo-router";
 import { Colors } from "@/assets/Colors";
@@ -6,10 +6,56 @@ import { Dimens } from "@/assets/Dimens";
 import { CustomTextInput } from "@/components/CustomTextInput";
 import { useState } from "react";
 import PasswordResetErrorAlert from "@/components/PasswordResetErrorAlert";
+import { auth } from "@/firebaseConfig";
+import { sendPasswordResetEmail } from "firebase/auth";
 
 export default function forgotPassword() {
     const [email, setEmail] = useState("");
     const [visible, setVisible] = useState(false);
+    const [loading, setLoading] = useState(false);
+    const [errorMessage, setErrorMessage] = useState("");
+
+    const validateEmail = () => {
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i;
+        
+        if(!emailRegex.test(email)){
+            ToastAndroid.show("Please enter a valid email", ToastAndroid.LONG);
+            return false;
+        }
+
+        return true;
+    }
+
+    const resetPassword = () => {
+        sendPasswordResetEmail(auth, email)
+            .then(() => {
+                // Password reset email sent
+                setLoading(false);
+                router.replace("/auth/forgot-password/PasswordReset")
+            })
+            .catch((error) => {
+                const errorCode = error.code;
+                // handle error
+                setLoading(false);
+                if (errorCode === "auth/user-not-found") {
+                    setErrorMessage("It's not you, it's us. We couldn’t find that email. Double-check and give it another shot!");
+                }
+                else {
+                    setErrorMessage(error.code);
+                }
+
+                setVisible(true);
+            })
+    }
+
+    const handlePasswordReset = () => {
+        setLoading(true);
+        if (!validateEmail()) {
+            setLoading(false);
+            return;
+        }
+        resetPassword();
+    }
 
     return (
         <KeyboardAvoidingView
@@ -45,13 +91,18 @@ export default function forgotPassword() {
                     </View>
                     <TouchableOpacity
                         style={styles.button}
-                        onPress={() => { router.replace("/auth/forgot-password/PasswordReset") }}
+                        onPress={() => { handlePasswordReset() }}
                     >
                         <Text style={styles.buttonText}>Send me the magic link!</Text>
                     </TouchableOpacity>
-                    <PasswordResetErrorAlert visible={visible} setVisible={setVisible} />
+                    <PasswordResetErrorAlert visible={visible} setVisible={setVisible} errorMessage={errorMessage} />
                 </View>
             </ScrollView>
+            {loading && (
+                <View style={styles.loaderContainer}>
+                    <ActivityIndicator size="large" color={Colors.primary_2} />
+                </View>
+            )}
         </KeyboardAvoidingView>
     )
 }
@@ -110,5 +161,11 @@ const styles = StyleSheet.create({
         color: "white",
         fontSize: Dimens.bodySize,
         fontFamily: "Montserrat_700Bold",
+    },
+    loaderContainer: {
+        ...StyleSheet.absoluteFillObject,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: 'rgba(255, 255, 255, 0.6)',
     },
 });
