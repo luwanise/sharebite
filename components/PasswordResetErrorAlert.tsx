@@ -1,5 +1,6 @@
 import { Colors } from '@/assets/Colors';
 import { Dimens } from '@/assets/Dimens';
+import Ionicons from '@expo/vector-icons/Ionicons';
 import React, { useState, useCallback } from 'react';
 import { Modal, View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 
@@ -15,7 +16,11 @@ const PasswordResetErrorAlert: React.FC<PasswordResetErrorAlertProps> = ({ visib
     <Modal visible={visible} transparent={true}>
       <View style={styles.modalContainer}>
         <View style={styles.alertContainer}>
-          <Text style={styles.title}>Uh-oh, something went wrong!</Text>
+          <View style={styles.header}>
+            <Ionicons name="warning" size={24} color={Colors.primary_1} />
+            <Text style={styles.title}>Uh-oh, something went wrong!</Text>
+            <View />
+          </View>
           <Text style={styles.message}> {errorMessage} </Text>
           <TouchableOpacity style={styles.button} onPress={() => setVisible(false)}>
             <Text style={styles.buttonText}>Try again</Text>
@@ -38,6 +43,10 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.background_1,
     borderRadius: 10,
     padding: Dimens.padding,
+  },
+  header: {
+    flexDirection: 'row',
+    justifyContent: "space-between",
   },
   title: {
     fontSize: Dimens.bodySize,
