@@ -54,6 +54,12 @@ export default function LoginScreen() {
                 setLoading(false);
                 if (error.code === 'auth/invalid-credential') {
                     ToastAndroid.show('Invalid email or password', ToastAndroid.LONG);
+                } else if (error.code === 'auth/user-not-found') {
+                    ToastAndroid.show('User not found', ToastAndroid.LONG);
+                } else if (error.code === 'auth/wrong-password') {
+                    ToastAndroid.show('Incorrect password', ToastAndroid.LONG);
+                } else if (error.code === 'auth/network-request-failed') {
+                    ToastAndroid.show('Whoops! Looks like we’re having trouble connecting. Please check your internet and give it another go!', ToastAndroid.LONG);
                 } else {
                     ToastAndroid.show(`An error occurred: ${error.message}`, ToastAndroid.LONG);
                 }
