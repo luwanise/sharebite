@@ -46,7 +46,7 @@ export default function LoginScreen() {
                 const userId = userCredential.user.uid;
                 router.dismissAll();
                 router.replace({
-                    "pathname": "/home",
+                    "pathname": "/(tabs)",
                     "params": { "userId": userId }
                 });
             })

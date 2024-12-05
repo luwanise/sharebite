@@ -69,7 +69,7 @@ const signUpUser = () => {
         const userId = userCredential.user.uid;
         router.dismissAll();
         router.replace({
-            "pathname": "/home",
+            "pathname": "/(tabs)",
             "params": { "userId": userId }
         });
     })
