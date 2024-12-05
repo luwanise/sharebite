@@ -39,8 +39,9 @@ export default function forgotPassword() {
                 setLoading(false);
                 if (errorCode === "auth/user-not-found") {
                     setErrorMessage("It's not you, it's us. We couldn’t find that email. Double-check and give it another shot!");
-                }
-                else {
+                } else if (errorCode === "auth/network-request-failed") {
+                    setErrorMessage("Whoops! Looks like we’re having trouble connecting. Please check your internet and give it another go!");
+                } else {
                     setErrorMessage(error.code);
                 }
 
