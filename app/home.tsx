@@ -1,12 +1,13 @@
 import { Colors } from "@/assets/Colors";
 import { useLocalSearchParams } from "expo-router";
-import { StyleSheet, Text, View } from "react-native";
+import { StatusBar, StyleSheet, Text, View } from "react-native";
 
 export default function HomeScreen() {
     const { userId } = useLocalSearchParams();
 
     return (
         <View style={styles.container}>
+            <StatusBar translucent hidden />
             <Text>Home</Text>
             <Text>User ID: {userId}</Text>
         </View>
