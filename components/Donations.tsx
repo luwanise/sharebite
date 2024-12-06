@@ -17,6 +17,7 @@ export function Donations({ data }: DonationsProps) {
                 keyExtractor={(item) => item.id.toString()}
                 contentContainerStyle={styles.contentContainer}
                 showsVerticalScrollIndicator={false}
+                scrollEnabled={false}
             />
         </View>
     )

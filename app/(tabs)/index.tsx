@@ -1,6 +1,6 @@
 import { Colors } from "@/assets/Colors";
 import { useLocalSearchParams } from "expo-router";
-import { StatusBar, StyleSheet, View } from "react-native";
+import { ScrollView, StatusBar, StyleSheet, View } from "react-native";
 import { HomePageHeader } from "@/components/HomePageHeader";
 import { ThankYouList } from "@/components/ThankYouList";
 import { getThankYous } from "@/firebase/getThankYous";
@@ -12,12 +12,19 @@ export default function HomeScreen() {
     const thankYous = getThankYous();
     const donations = getDonations();
 
+    const data = [
+        { type: 'thank yous', data: thankYous },
+        { type: 'donations', data: donations },
+    ]
+
     return (
         <View style={styles.container}>
             <StatusBar translucent hidden />
             <HomePageHeader />
-            <ThankYouList data={thankYous} />
-            <Donations data={donations}/>
+            <ScrollView>
+                <ThankYouList data={thankYous} />
+                <Donations data={donations}/>
+            </ScrollView>
         </View>
     )
 }
