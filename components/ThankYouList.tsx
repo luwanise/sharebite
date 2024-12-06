@@ -16,6 +16,7 @@ export function ThankYouList({data}: ThankYouListProps) {
                 renderItem={({ item }) => <ThankYouCard item={item} />}
                 keyExtractor={(item) => item.id.toString()}
                 contentContainerStyle={styles.contentContainer}
+                showsHorizontalScrollIndicator={false}
                 horizontal
             />
         </View>
