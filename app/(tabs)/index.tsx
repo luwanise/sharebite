@@ -1,11 +1,11 @@
 import { Colors } from "@/assets/Colors";
 import { useLocalSearchParams } from "expo-router";
 import { StatusBar, StyleSheet, View } from "react-native";
-import { getThankYous } from "../firebase/getThankYous";
-import { ThankYouList } from "@/components/ThankYouList";
 import { HomePageHeader } from "@/components/HomePageHeader";
+import { ThankYouList } from "@/components/ThankYouList";
+import { getThankYous } from "@/firebase/getThankYous";
 import { Donations } from "@/components/Donations";
-import { getDonations } from "../firebase/getDonations";
+import { getDonations } from "@/firebase/getDonations";
 
 export default function HomeScreen() {
     const { userId } = useLocalSearchParams();
