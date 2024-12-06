@@ -5,17 +5,19 @@ import { getThankYous } from "../firebase/getThankYous";
 import { ThankYouList } from "@/components/ThankYouList";
 import { HomePageHeader } from "@/components/HomePageHeader";
 import { Donations } from "@/components/Donations";
+import { getDonations } from "../firebase/getDonations";
 
 export default function HomeScreen() {
     const { userId } = useLocalSearchParams();
-    const data = getThankYous();
+    const thankYous = getThankYous();
+    const donations = getDonations();
 
     return (
         <View style={styles.container}>
             <StatusBar translucent hidden />
             <HomePageHeader />
-            <ThankYouList data={data} />
-            <Donations />
+            <ThankYouList data={thankYous} />
+            <Donations data={donations}/>
         </View>
     )
 }
