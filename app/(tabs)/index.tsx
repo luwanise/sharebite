@@ -26,7 +26,6 @@ export default function HomeScreen() {
             <TouchableOpacity style={styles.search} onPress={() => {}}>
                 <Ionicons name="search" size={24} color={Colors.background_1} />
             </TouchableOpacity>
-            <Text style={styles.impact}>Our Impact</Text>
             <ThankYouList data={data} />
         </View>
     )
@@ -75,10 +74,5 @@ const styles = StyleSheet.create({
         width: 160,
         height: 160,
         resizeMode: "contain",
-    },
-    impact: {
-        fontFamily: "Montserrat_700Bold",
-        fontSize: 20,
-        padding: Dimens.padding,
-    },
+    }
 })
