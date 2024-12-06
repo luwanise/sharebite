@@ -4,6 +4,7 @@ import { StatusBar, StyleSheet, View } from "react-native";
 import { getThankYous } from "../firebase/getThankYous";
 import { ThankYouList } from "@/components/ThankYouList";
 import { HomePageHeader } from "@/components/HomePageHeader";
+import { Donations } from "@/components/Donations";
 
 export default function HomeScreen() {
     const { userId } = useLocalSearchParams();
@@ -14,6 +15,7 @@ export default function HomeScreen() {
             <StatusBar translucent hidden />
             <HomePageHeader />
             <ThankYouList data={data} />
+            <Donations />
         </View>
     )
 }
