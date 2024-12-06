@@ -1,0 +1,98 @@
+import { ThankYou } from "@/models/ThankYou";
+
+export function getThankYous(){
+    const dummyThankYouData: ThankYou[] = [
+    {
+        id: 1,
+        name: 'Liam O’Connor',
+        message: 'Your unwavering support has truly touched our hearts. We cannot thank you enough!',
+        date: new Date('2022-01-01'),
+        image: 'https://thispersondoesnotexist.com/',
+        city: 'New York',
+        state: 'NY',
+    },
+    {
+        id: 2,
+        name: 'Amara Patel',
+        message: 'I’m deeply moved by your generosity. Thanks to all of you for making this possible!',
+        date: new Date('2022-01-15'),
+        image: 'https://fastly.picsum.photos/id/65/300/300.jpg?hmac=arL_WQM22p4Uc_xyIxngYLSzbsYg6wYY0_gqJmyvNvA',
+        city: 'London',
+        state: 'England',
+    },
+    {
+        id: 3,
+        name: 'Johann Müller',
+        message: 'I am overwhelmed by the kindness and support from all of you. Thank you for making a real difference!',
+        date: new Date('2022-02-01'),
+        image: 'https://fastly.picsum.photos/id/1006/300/300.jpg?hmac=CUgfsBMUi23LSA2Nlk8PFiK3eS1IL81n_T4X0bTE3Z4',
+        city: 'Berlin',
+        state: 'Germany',
+    },
+    {
+        id: 4,
+        name: 'Emily Chen',
+        message: 'From the bottom of my heart, I thank each and every one of you for your incredible generosity!',
+        date: new Date('2022-02-15'),
+        image: 'https://fastly.picsum.photos/id/1043/300/300.jpg?hmac=xIWa84D1qm-PIKZHEZBl-Pb04S6E5ll3trgnVOG8xIQ',
+        city: 'Toronto',
+        state: 'Ontario',
+    },
+    {
+        id: 5,
+        name: 'Sophie Williams',
+        message: 'You have all touched my heart in ways I can’t express. Thank you so much for your support!',
+        date: new Date('2022-03-01'),
+        image: 'https://fastly.picsum.photos/id/695/300/300.jpg?hmac=6Sh_ZQoCQx4j-pNIfzKgLhZhNegGY3XK2PkI5MMeGHY',
+        city: 'Sydney',
+        state: 'New South Wales',
+    },
+    {
+        id: 6,
+        name: 'Pierre Lefevre',
+        message: 'I am deeply moved by your kindness and generosity. Thank you for standing by me and making a difference!',
+        date: new Date('2022-03-15'),
+        image: 'https://fastly.picsum.photos/id/685/300/300.jpg?hmac=FkE38FN8Rt2B1W-BdRFMExkogK_J89LtbeO3sf07fX4',
+        city: 'Paris',
+        state: 'Île-de-France',
+    },
+    {
+        id: 7,
+        name: 'Thabo Nkosi',
+        message: 'Words can’t express how grateful I am for your kindness. Your support truly means the world to me!',
+        date: new Date('2022-04-01'),
+        image: 'https://fastly.picsum.photos/id/188/300/300.jpg?hmac=O1Fgsa5q091m_1eNHYtavDoVNb6yIklGq1A67yv5_vk',
+        city: 'Cape Town',
+        state: 'Western Cape',
+    },
+    {
+        id: 8,
+        name: 'Aiko Tanaka',
+        message: 'I’m incredibly touched by the generosity of all of you. Your kindness gives me hope and strength.',
+        date: new Date('2022-04-15'),
+        image: 'https://fastly.picsum.photos/id/516/300/300.jpg?hmac=rjKkPPkY2QLwGN8JBF5Af6y910lX5PaPaXpqbxr1-IU',
+        city: 'Tokyo',
+        state: 'Tokyo Prefecture',
+    },
+    {
+        id: 9,
+        name: 'Carlos González',
+        message: 'I am beyond grateful for the incredible support from all of you. You’ve truly made a difference in my life!',
+        date: new Date('2022-05-01'),
+        image: 'https://fastly.picsum.photos/id/239/300/300.jpg?hmac=esyLH7XPNWHLXWLu_Dvs59SpxUEnrBHF4FV_02YOak4',
+        city: 'Mexico City',
+        state: 'CDMX',
+    },
+    {
+        id: 10,
+        name: 'Pimchanok Chaiyaporn',
+        message: 'I cannot thank you enough for your kindness and generosity. You’ve given me hope for the future!',
+        date: new Date('2022-05-15'),
+        image: 'https://fastly.picsum.photos/id/11/300/300.jpg?hmac=CziSEzrosHahJDUqPHiKx6cnAZh9zlU1VM2T52T5an8',
+        city: 'Bangkok',
+        state: 'Bangkok',
+    },
+    ];
+
+    return dummyThankYouData;
+}

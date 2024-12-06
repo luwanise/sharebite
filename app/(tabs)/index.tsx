@@ -3,9 +3,12 @@ import { Dimens } from "@/assets/Dimens";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { useLocalSearchParams } from "expo-router";
 import { Image, StatusBar, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { getThankYous } from "../firebase/getThankYous";
+import { ThankYouList } from "@/components/ThankYouList";
 
 export default function HomeScreen() {
     const { userId } = useLocalSearchParams();
+    const data = getThankYous();
 
     return (
         <View style={styles.container}>
@@ -23,6 +26,8 @@ export default function HomeScreen() {
             <TouchableOpacity style={styles.search} onPress={() => {}}>
                 <Ionicons name="search" size={24} color={Colors.background_1} />
             </TouchableOpacity>
+            <Text style={styles.impact}>Our Impact</Text>
+            <ThankYouList data={data} />
         </View>
     )
 }
@@ -30,8 +35,6 @@ export default function HomeScreen() {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        alignItems: "center",
-        justifyContent: "space-between",
         backgroundColor: Colors.background_1,
     },
     search: {
@@ -49,7 +52,7 @@ const styles = StyleSheet.create({
         backgroundColor: Colors.primary_1,
         borderBottomLeftRadius: 25,
         borderBottomRightRadius: 25,
-        gap: 10
+        gap: 10,
     },
     headerTextContainer: {
         flex: 1,
@@ -72,5 +75,10 @@ const styles = StyleSheet.create({
         width: 160,
         height: 160,
         resizeMode: "contain",
-    }
+    },
+    impact: {
+        fontFamily: "Montserrat_700Bold",
+        fontSize: 20,
+        padding: Dimens.padding,
+    },
 })
