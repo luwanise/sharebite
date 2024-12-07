@@ -20,6 +20,7 @@ export default function RootLayout() {
       <Stack.Screen name="auth/forgot-password/forgotPassword" options={{ headerShown: false }} />
       <Stack.Screen name="auth/forgot-password/PasswordReset" options={{ headerShown: false }} />
       <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+      <Stack.Screen name="donations/[donation]" options={{ headerShown: false }} />
     </Stack>
   )
 }
