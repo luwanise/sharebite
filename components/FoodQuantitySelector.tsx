@@ -2,14 +2,37 @@ import { Colors } from "@/assets/Colors";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
-export function FoodQuantitySelector() {
+interface FoodQuantitySelectorProps {
+    foodQuantity: number;
+    setFoodQuantity: CallableFunction;
+    maxQuantity: number | undefined;
+}
+
+export function FoodQuantitySelector({foodQuantity, setFoodQuantity, maxQuantity}: FoodQuantitySelectorProps) {
+
+    const increasedQuantity = () => {
+        const quantity = foodQuantity + 1;
+        if (quantity == maxQuantity) {
+            return;
+        }
+        setFoodQuantity(quantity);
+    };
+
+    const decreasedQuantity = () => {
+        const quantity = foodQuantity - 1;
+        if (quantity == 0) {
+            return;
+        }
+        setFoodQuantity(quantity);
+    };
+
     return (
         <View style={styles.container}>
-            <TouchableOpacity style={styles.quantityButton} onPress={() => {}}>
+            <TouchableOpacity style={styles.quantityButton} onPress={() => {increasedQuantity()}}>
                 <Ionicons name="add" size={24} color={Colors.background_2} />
             </TouchableOpacity>
-            <Text style={styles.quantityText}>1</Text>
-            <TouchableOpacity style={styles.quantityButton} onPress={() => {}}>
+            <Text style={styles.quantityText}>{foodQuantity}</Text>
+            <TouchableOpacity style={styles.quantityButton} onPress={() => {decreasedQuantity()}}>
                 <Ionicons name="remove" size={24} color={Colors.background_2} />
             </TouchableOpacity>
         </View>

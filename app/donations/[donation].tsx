@@ -6,11 +6,12 @@ import { Donation } from "@/models/Donation";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { router, useLocalSearchParams } from "expo-router";
 import { useEffect, useState } from "react";
-import { Image, ImageBackground, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
 export default function DonationsDetailsScreen() {
     const { donation } = useLocalSearchParams();
     const [details, setDetails] = useState<Donation>();
+    const [quantity, setQuantity] = useState(1);
 
     useEffect(() => {
         const newDetails = getDonationDetails(donation.toString());
@@ -30,7 +31,7 @@ export default function DonationsDetailsScreen() {
                 <View style={styles.detailsContainer}>
                     <View style={styles.foodNameContainer}>
                         <Text style={styles.foodName}>{details?.foodName}</Text>
-                        <FoodQuantitySelector />
+                        <FoodQuantitySelector foodQuantity={quantity} setFoodQuantity={setQuantity} maxQuantity={details?.quantity}/>
                     </View>
                     <Text style={styles.description}>{details?.description}</Text>
                     <View style={styles.expiryContainer}>
