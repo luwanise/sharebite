@@ -31,7 +31,7 @@ export default function DonationsDetailsScreen() {
                 <View style={styles.detailsContainer}>
                     <View style={styles.foodNameContainer}>
                         <Text style={styles.foodName}>{details?.foodName}</Text>
-                        <FoodQuantitySelector foodQuantity={quantity} setFoodQuantity={setQuantity} maxQuantity={details?.quantity}/>
+                        <FoodQuantitySelector foodQuantity={quantity} setFoodQuantity={setQuantity} maxQuantity={details?.quantity ?? 0}/>
                     </View>
                     <Text style={styles.description}>{details?.description}</Text>
                     <View style={styles.expiryContainer}>

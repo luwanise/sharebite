@@ -5,14 +5,14 @@ import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 interface FoodQuantitySelectorProps {
     foodQuantity: number;
     setFoodQuantity: CallableFunction;
-    maxQuantity: number | undefined;
+    maxQuantity: number ;
 }
 
 export function FoodQuantitySelector({foodQuantity, setFoodQuantity, maxQuantity}: FoodQuantitySelectorProps) {
 
     const increasedQuantity = () => {
         const quantity = foodQuantity + 1;
-        if (quantity == maxQuantity) {
+        if (quantity > maxQuantity) {
             return;
         }
         setFoodQuantity(quantity);
