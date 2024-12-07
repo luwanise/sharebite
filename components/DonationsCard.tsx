@@ -1,6 +1,6 @@
 import { Colors } from "@/assets/Colors";
 import { Donation } from "@/models/Donation";
-import { RelativePathString, router } from "expo-router";
+import { router } from "expo-router";
 import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
 interface DonationsCardProps {
@@ -16,7 +16,7 @@ export function DonationsCard({item}: DonationsCardProps) {
         }}>
                 <Image source={{uri: item.image}} style={styles.image} />
             <View style={styles.details}>
-                <Text style={styles.foodName}>{item.foodName}</Text>
+                <Text style={styles.foodName}>{item.foodName} x{item.quantity}</Text>
                 <Text style={styles.description}>{item.description}</Text>
                 <Text style={styles.expiry}>Expires on: {item.expirationDate.toLocaleDateString()}</Text>
                 <Text style={styles.pickupDetails}>See Pickup Details {">"}</Text>
