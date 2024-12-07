@@ -6,6 +6,4 @@ export type Donation = {
     location: string;
     description: string;
     image: string;
-    userId: string;
-
 }
