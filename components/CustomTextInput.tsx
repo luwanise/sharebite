@@ -33,7 +33,6 @@ export function CustomTextInput({label, value, onChangeText, placeholder, secure
 const styles = StyleSheet.create({
   container: {
     width: "100%",
-    paddingHorizontal: 20,
   },
   label: {
     fontSize: 16,
@@ -43,7 +42,6 @@ const styles = StyleSheet.create({
   input: {
     width: '100%',
     height: 50,
-    borderColor: Colors.primary_1,
     borderWidth: 1,
     borderRadius: 10,
     paddingLeft: 15,

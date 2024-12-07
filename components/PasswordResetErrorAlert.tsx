@@ -60,11 +60,12 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   button: {
-    padding: 10,
+    padding: 12,
     backgroundColor: Colors.primary_1,
     borderRadius: 5,
     justifyContent: 'center',
     alignItems: 'center',
+    borderWidth: 1,
   },
   buttonText: {
     fontSize: Dimens.bodySize,

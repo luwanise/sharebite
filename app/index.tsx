@@ -83,6 +83,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     backgroundColor: Colors.primary_1,
     alignItems: "center",
+    borderWidth: 1
   },
   buttonText: {
     color: "white",

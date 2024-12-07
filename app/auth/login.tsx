@@ -46,7 +46,7 @@ export default function LoginScreen() {
                 const userId = userCredential.user.uid;
                 router.dismissAll();
                 router.replace({
-                    "pathname": "/(tabs)",
+                    "pathname": "/(home)",
                     "params": { "userId": userId }
                 });
             })
@@ -149,6 +149,7 @@ const styles = StyleSheet.create({
     },
     textInputContainer: {
         width: "100%",
+        paddingHorizontal: Dimens.padding,
         gap: Dimens.padding,
     },
     forgotPassword: {
@@ -164,6 +165,7 @@ const styles = StyleSheet.create({
         borderRadius: Dimens.buttonBorderRadius,
         backgroundColor: Colors.primary_1,
         alignItems: "center",
+        borderWidth: 1,
     },
     buttonText: {
         color: "white",

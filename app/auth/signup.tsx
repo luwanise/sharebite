@@ -69,7 +69,7 @@ const signUpUser = () => {
         const userId = userCredential.user.uid;
         router.dismissAll();
         router.replace({
-            "pathname": "/(tabs)",
+            "pathname": "/(home)",
             "params": { "userId": userId }
         });
     })
@@ -201,8 +201,9 @@ const styles = StyleSheet.create({
         backgroundColor: Colors.background_1,
         borderRadius: 20,
         marginTop: Dimens.padding,
-        paddingVertical: Dimens.padding,
+        padding: Dimens.padding,
         gap: Dimens.padding,
+        borderWidth: 1,
     },
     button: {
         width: "80%",
@@ -211,6 +212,7 @@ const styles = StyleSheet.create({
         backgroundColor: Colors.background_1,
         alignItems: "center",
         marginTop: 20,
+        borderWidth: 1,
     },
     buttonText: {
         color: Colors.primary_1,

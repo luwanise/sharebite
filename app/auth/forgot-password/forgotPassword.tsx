@@ -119,7 +119,8 @@ const styles = StyleSheet.create({
         paddingVertical: Dimens.padding,
     },
     innerContainer: {
-        width: '90%',
+        width: '100%',
+        padding: 20,
         alignItems: 'center',
     },
     headerContainer: {
@@ -148,15 +149,16 @@ const styles = StyleSheet.create({
         marginBottom: 20,
     },
     input: {
-        width: '100%',
+        width: '90%',
     },
     button: {
         padding: 15,
-        width: "100%",
+        width: "90%",
         borderRadius: Dimens.buttonBorderRadius,
         backgroundColor: Colors.primary_1,
         alignItems: "center",
         marginVertical: 30,
+        borderWidth: 1
     },
     buttonText: {
         color: "white",

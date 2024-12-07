@@ -39,7 +39,7 @@ export default function TabLayout() {
       {/* Floating Action Button */}
       <TouchableOpacity
         style={styles.fab}
-        onPress={() => router.navigate("/(tabs)/NewDonation")}
+        onPress={() => router.navigate("/(home)/NewDonation")}
       >
         <Ionicons name="add-circle" size={56} color={Colors.primary_2} />
       </TouchableOpacity>

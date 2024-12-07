@@ -65,11 +65,12 @@ const styles = StyleSheet.create({
     },
     button: {
         padding: 15,
-        width: "80%",
+        width: "90%",
         borderRadius: Dimens.buttonBorderRadius,
         backgroundColor: Colors.primary_1,
         alignItems: "center",
         marginVertical: 30,
+        borderWidth: 1
     },
     buttonText: {
         color: "white",
