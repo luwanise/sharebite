@@ -6,7 +6,7 @@ interface FoodQuantitySelectorProps {
     foodQuantity: number;
     setFoodQuantity: CallableFunction;
     maxQuantity: number;
-    heading: boolean;
+    heading?: boolean;
 }
 
 export function FoodQuantitySelector({foodQuantity, setFoodQuantity, maxQuantity, heading = false}: FoodQuantitySelectorProps) {
