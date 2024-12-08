@@ -5,10 +5,11 @@ import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 interface FoodQuantitySelectorProps {
     foodQuantity: number;
     setFoodQuantity: CallableFunction;
-    maxQuantity: number ;
+    maxQuantity: number;
+    heading: boolean;
 }
 
-export function FoodQuantitySelector({foodQuantity, setFoodQuantity, maxQuantity}: FoodQuantitySelectorProps) {
+export function FoodQuantitySelector({foodQuantity, setFoodQuantity, maxQuantity, heading = false}: FoodQuantitySelectorProps) {
 
     const increasedQuantity = () => {
         const quantity = foodQuantity + 1;
@@ -27,14 +28,17 @@ export function FoodQuantitySelector({foodQuantity, setFoodQuantity, maxQuantity
     };
 
     return (
-        <View style={styles.container}>
-            <TouchableOpacity style={styles.quantityButton} onPress={() => {increasedQuantity()}}>
-                <Ionicons name="add" size={24} color={Colors.background_2} />
-            </TouchableOpacity>
-            <Text style={styles.quantityText}>{foodQuantity}</Text>
-            <TouchableOpacity style={styles.quantityButton} onPress={() => {decreasedQuantity()}}>
-                <Ionicons name="remove" size={24} color={Colors.background_2} />
-            </TouchableOpacity>
+        <View>
+            {heading && <Text style={styles.quantityLabel}>Quantity</Text>}
+            <View style={styles.container}>
+                <TouchableOpacity style={styles.quantityButton} onPress={() => {increasedQuantity()}}>
+                    <Ionicons name="add" size={24} color={Colors.background_2} />
+                </TouchableOpacity>
+                <Text style={styles.quantityText}>{foodQuantity}</Text>
+                <TouchableOpacity style={styles.quantityButton} onPress={() => {decreasedQuantity()}}>
+                    <Ionicons name="remove" size={24} color={Colors.background_2} />
+                </TouchableOpacity>
+            </View>
         </View>
     )
 }
@@ -57,5 +61,10 @@ const styles = StyleSheet.create({
         fontSize: 20,
         fontFamily: "Montserrat_700Bold",
         marginHorizontal: 10
+    },
+    quantityLabel: {
+        flex: 1,
+        fontSize: 16,
+        fontFamily: "Lato_400Regular",
     }
 })

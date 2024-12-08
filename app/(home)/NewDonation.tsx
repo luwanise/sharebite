@@ -1,10 +1,11 @@
 import { Colors } from "@/assets/Colors";
 import { Dimens } from "@/assets/Dimens";
 import { CustomTextInput } from "@/components/CustomTextInput";
+import { FoodQuantitySelector } from "@/components/FoodQuantitySelector";
+import { ExpirationDateSelector } from "@/components/NewDonation/ExpirationDateSelector";
 import { ImageSelector } from "@/components/NewDonation/ImageSelector";
-import { QuantityAndExpiration } from "@/components/NewDonation/QuantityAndExpiration";
 import { useState } from "react";
-import { ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
 export default function NewDonationScreen() {
     const [image, setImage] = useState("");
@@ -34,12 +35,15 @@ export default function NewDonationScreen() {
                     onChangeText={setDescription}
                     placeholder="Enter description"
                 />
-                <QuantityAndExpiration 
-                    quantity={quantity} 
-                    setQuantity={setQuantity} 
-                    expirationDate={expirationDate} 
-                    setExpirationDate={setExpirationDate}
-                />
+                <View style={styles.quantityAndExpiration}>
+                    <FoodQuantitySelector
+                        foodQuantity={quantity}
+                        setFoodQuantity={setQuantity}
+                        maxQuantity={1000}
+                        heading
+                    />
+                    <ExpirationDateSelector expirationDate={expirationDate} setExpirationDate={setExpirationDate} />
+                </View>
                 <CustomTextInput
                     label="Location"
                     value={location}
@@ -83,5 +87,11 @@ const styles = StyleSheet.create({
         fontFamily: "Montserrat_700Bold",
         color: Colors.background_1,
         textAlign: "center",
+    },
+    quantityAndExpiration: {
+        width: "100%",
+        flexDirection: "row",
+        gap: 20,
+        alignItems: "baseline",
     }
 })
