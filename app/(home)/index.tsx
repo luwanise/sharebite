@@ -2,10 +2,10 @@ import { Colors } from "@/assets/Colors";
 import { useLocalSearchParams } from "expo-router";
 import { ScrollView, StatusBar, StyleSheet, View } from "react-native";
 import { HomePageHeader } from "@/components/HomePageHeader";
-import { ThankYouList } from "@/components/ThankYouList";
-import { getThankYous } from "@/firebase/getThankYous";
-import { Donations } from "@/components/Donations";
-import { getDonations } from "@/firebase/getDonations";
+import { ThankYouList } from "@/components/ThankYous/ThankYouList";
+import { getThankYous } from "@/utils/firebase/getThankYous";
+import { Donations } from "@/components/Donations/Donations";
+import { getDonations } from "@/utils/firebase/getDonations";
 
 export default function HomeScreen() {
     const { userId } = useLocalSearchParams();

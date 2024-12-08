@@ -1,7 +1,7 @@
 import { Colors } from "@/assets/Colors";
 import { Dimens } from "@/assets/Dimens";
 import { FoodQuantitySelector } from "@/components/FoodQuantitySelector";
-import { getDonationDetails } from "@/firebase/getDonationDetails";
+import { getDonationDetails } from "@/utils/firebase/getDonationDetails";
 import { Donation } from "@/models/Donation";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { router, useLocalSearchParams } from "expo-router";
