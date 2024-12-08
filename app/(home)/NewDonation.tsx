@@ -15,7 +15,7 @@ export default function NewDonationScreen() {
     const [location, setLocation] = useState("");
 
     return (
-        <ScrollView contentContainerStyle={styles.container}>
+        <View style={styles.container}>
             <Text style={styles.header}>Create a new donation</Text>
             <ImageSelector 
                 image={image} 
@@ -50,12 +50,13 @@ export default function NewDonationScreen() {
             <TouchableOpacity style={styles.donateButton}>
                 <Text style={styles.donateButtonText}>Donate</Text>
             </TouchableOpacity>
-        </ScrollView>
+        </View>
     )
 }
 
 const styles = StyleSheet.create({
     container: {
+        flex: 1,
         justifyContent: "space-between",
         alignItems: "center",
         backgroundColor: Colors.background_1,
