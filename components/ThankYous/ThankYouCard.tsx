@@ -30,7 +30,8 @@ const styles = StyleSheet.create({
         borderTopEndRadius: 25,
         borderBottomStartRadius: 25,
         padding: Dimens.padding,
-        elevation: 5,
+        borderWidth: 1,
+        borderColor: Colors.primary_1,
         marginVertical: 5,
         gap: 5,
         flexDirection: "column"
