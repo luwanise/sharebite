@@ -52,7 +52,6 @@ const styles = StyleSheet.create({
         backgroundColor: Colors.primary_2,
         justifyContent: "center",
         alignItems: "center",
-        borderWidth: 1
     },
     quantityText: {
         fontSize: 20,

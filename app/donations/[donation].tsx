@@ -73,8 +73,7 @@ const styles = StyleSheet.create({
         borderRadius: 15,
         backgroundColor: Colors.primary_2,
         justifyContent: "center",
-        alignItems: "center",
-        borderWidth: 1
+        alignItems: "center"
     },    
     detailsCard: {
         flex: 1,
@@ -83,7 +82,6 @@ const styles = StyleSheet.create({
         borderTopLeftRadius: 40,
         borderTopRightRadius: 40,
         marginTop: -40,
-        borderWidth: 1,
         padding: Dimens.padding,
         gap: 10,
         justifyContent: "space-between",
@@ -144,7 +142,6 @@ const styles = StyleSheet.create({
         padding: 15,
         borderRadius: Dimens.buttonBorderRadius,
         marginTop: 20,
-        borderWidth: 1,
     },
     claimDonationButtonText: {
         fontSize: Dimens.buttonText,

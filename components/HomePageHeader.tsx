@@ -38,7 +38,6 @@ const styles = StyleSheet.create({
         borderBottomLeftRadius: 25,
         borderBottomRightRadius: 25,
         gap: 10,
-        borderWidth: 1,
     },
     headerTextContainer: {
         flex: 1,

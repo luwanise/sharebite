@@ -64,8 +64,7 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.primary_1,
     borderRadius: 5,
     justifyContent: 'center',
-    alignItems: 'center',
-    borderWidth: 1,
+    alignItems: 'center'
   },
   buttonText: {
     fontSize: Dimens.bodySize,

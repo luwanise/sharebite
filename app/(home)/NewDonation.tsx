@@ -75,7 +75,6 @@ const styles = StyleSheet.create({
         padding: 15,
         borderRadius: Dimens.buttonBorderRadius,
         marginBottom: 10,
-        borderWidth: 1,
         width: "100%"
     },
     donateButtonText: {

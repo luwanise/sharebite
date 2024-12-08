@@ -51,6 +51,7 @@ const styles = StyleSheet.create({
     },
     expirationDate: {
       borderWidth: 1,
+      borderColor: Colors.primary_1,
       borderRadius: 10,
       padding: 14,
       fontSize: 16,

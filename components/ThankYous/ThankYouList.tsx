@@ -25,7 +25,7 @@ export function ThankYouList({data}: ThankYouListProps) {
 
 const styles = StyleSheet.create({
     container: {
-        marginHorizontal: Dimens.padding,
+        paddingHorizontal: Dimens.padding,
     },
     impact: {
         fontFamily: "Montserrat_700Bold",
@@ -34,5 +34,6 @@ const styles = StyleSheet.create({
     },
     contentContainer: {
         gap: 15,
+        paddingRight: 40,
     },
 })

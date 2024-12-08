@@ -202,8 +202,7 @@ const styles = StyleSheet.create({
         borderRadius: 20,
         marginTop: Dimens.padding,
         padding: Dimens.padding,
-        gap: Dimens.padding,
-        borderWidth: 1,
+        gap: Dimens.padding
     },
     button: {
         width: "80%",
@@ -211,8 +210,7 @@ const styles = StyleSheet.create({
         borderRadius: Dimens.buttonBorderRadius,
         backgroundColor: Colors.background_1,
         alignItems: "center",
-        marginTop: 20,
-        borderWidth: 1,
+        marginTop: 20
     },
     buttonText: {
         color: Colors.primary_1,

@@ -1,5 +1,7 @@
 import { Colors } from "@/assets/Colors";
+import { Dimens } from "@/assets/Dimens";
 import { Donation } from "@/models/Donation";
+import Ionicons from "@expo/vector-icons/Ionicons";
 import { router } from "expo-router";
 import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
@@ -19,8 +21,9 @@ export function DonationsCard({item}: DonationsCardProps) {
                 <Text style={styles.foodName}>{item.foodName} x{item.quantity}</Text>
                 <Text style={styles.description}>{item.description}</Text>
                 <Text style={styles.expiry}>Expires on: {item.expirationDate.toLocaleDateString()}</Text>
-                <Text style={styles.pickupDetails}>See Pickup Details {">"}</Text>
+                {/* <Text style={styles.pickupDetails}>See Pickup Details {">"}</Text> */}
             </View>
+            <Ionicons name="caret-forward-circle" size={24} color={Colors.primary_2} />
         </TouchableOpacity>
     )
 }
@@ -28,17 +31,16 @@ export function DonationsCard({item}: DonationsCardProps) {
 const styles = StyleSheet.create({
     container: {
         width: "100%",
-        backgroundColor: Colors.background_2,
-        borderWidth: 1,
-        borderRadius: 25,
+        borderBottomWidth: 1,
+        borderBottomColor: Colors.accent_2,
         flexDirection: "row",
-        padding: 10,
+        paddingBottom: Dimens.padding,
         gap: 10,
+        alignItems: "center",
     },
     image: {
         width: 100,
         height: 100,
-        borderWidth: 1,
         borderRadius: 20,
     },
     details: {

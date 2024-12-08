@@ -157,8 +157,7 @@ const styles = StyleSheet.create({
         borderRadius: Dimens.buttonBorderRadius,
         backgroundColor: Colors.primary_1,
         alignItems: "center",
-        marginVertical: 30,
-        borderWidth: 1
+        marginVertical: 30
     },
     buttonText: {
         color: "white",
