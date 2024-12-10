@@ -1,13 +1,15 @@
-import { Image, StyleSheet, Text, TouchableOpacity, View, ScrollView, KeyboardAvoidingView, Platform, Alert, ActivityIndicator, } from "react-native";
+import { Image, StyleSheet, Text, TouchableOpacity, View, ScrollView, KeyboardAvoidingView, Platform } from "react-native";
 import { Colors } from "@/assets/Colors";
 import { CustomTextInput } from "@/components/CustomTextInput";
 import { useState } from "react";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { router } from "expo-router";
 import { Dimens } from "@/assets/Dimens";
-import { ToastAndroid } from "react-native";;
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth } from "@/firebaseConfig";
+import { Validation } from "@/utils/Validation";
+import { showToastError } from "@/utils/showToastError";
+import { LoadingIndicator } from "@/components/Authentication/LoadingIndicator";
 
 export default function SignUpScreen() {
 const [name, setName] = useState("");
@@ -16,81 +18,56 @@ const [password, setPassword] = useState("");
 const [confirmPassword, setConfirmPassword] = useState("");
 const [loading, setLoading] = useState(false);
 
-const validateName = () => {
-    return name.length > 0;
-}
-
-const validateEmail = () => {
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i;
-    return emailRegex.test(email);
-}
-
-const validatePassword = () => {
-    const passwordRegex = /^(?=.*\d)[A-Za-z\d@$!%*?&]{8,}$/;
-    return passwordRegex.test(password);
-};
-
-const validatePasswordsMatch = () => {
-    return password === confirmPassword;
-}
-
 const validateForm = () => {
-  if (!validateName()) {
+  if (!Validation.validateName(name)) {
     setLoading(false);
-    ToastAndroid.show('Please enter your name', ToastAndroid.LONG);
-    return false;
+    throw new Error("auth/invalid-name");
   }
 
-  if (!validateEmail()) {
+  if (!Validation.validateEmail(email)) {
     setLoading(false);
-    ToastAndroid.show("Please enter a valid email", ToastAndroid.LONG);
-    return false;
+    throw new Error("auth/invalid-email");
   }
 
-  if (!validatePassword()) {
+  if (!Validation.validatePassword(password)) {
     setLoading(false);
-    ToastAndroid.show('Password must be at least 8 characters long and contain at least one digit.', ToastAndroid.LONG);
-    return false;
+    throw new Error("auth/weak-password");
   }
 
-  if (!validatePasswordsMatch()) {
+  if (!Validation.validatePasswordMatch(password, confirmPassword)) {
     setLoading(false);
-    ToastAndroid.show("Passwords do not match", ToastAndroid.LONG);
-    return false;
+    throw new Error("auth/password-mismatch");
   }
 
-  return true;};
+  return true;
+};
 
 const signUpUser = () => {
     createUserWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
         // Signed up
         setLoading(false);
-        const userId = userCredential.user.uid;
-        router.dismissAll();
-        router.replace({
+        router.dismissTo({
             "pathname": "/(home)",
-            "params": { "userId": userId }
+            "params": { "userId": userCredential.user.uid }
         });
     })
     .catch((error) => {
         setLoading(false);
-        if (error.code === 'auth/email-already-in-use') {
-            ToastAndroid.show('Email already in use', ToastAndroid.LONG);
-        } else if (error.code === 'auth/network-request-failed') {
-            ToastAndroid.show('Looks like we’re having trouble connecting. Please check your internet connection and try again!', ToastAndroid.LONG);
-        } else {
-            ToastAndroid.show(`An error occurred: ${error.message}`, ToastAndroid.LONG);
-        }
-});
+        showToastError(error.code);
+    });
 }
 
 const handleSignUp = () => {
     setLoading(true);
-    if (!validateForm()) {
-        return;
+    try{
+        validateForm();
+        signUpUser();
     }
-    signUpUser();
+    catch (error: any) {
+        setLoading(false);
+        showToastError(error.message);
+    }
 }
 
 return (
@@ -153,11 +130,7 @@ return (
                 <Text style={styles.googleButtonText}>Sign Up with Google</Text>
             </TouchableOpacity>
         </ScrollView>
-        {loading && (
-            <View style={styles.loaderContainer}>
-                <ActivityIndicator size="large" color={Colors.primary_2} />
-            </View>
-        )}
+        <LoadingIndicator loading={loading} />
     </KeyboardAvoidingView>
 );
 }
@@ -249,11 +222,5 @@ const styles = StyleSheet.create({
         fontFamily: "Lato_400Regular",
         color: Colors.background_2,
         marginLeft: 10,
-    },
-    loaderContainer: {
-        ...StyleSheet.absoluteFillObject,
-        justifyContent: 'center',
-        alignItems: 'center',
-        backgroundColor: 'rgba(255, 255, 255, 0.6)',
     },
 });

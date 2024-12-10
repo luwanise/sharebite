@@ -6,10 +6,11 @@ import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 interface ProfileItemProps {
     title: string;
     icon: any;
+    onPress: () => void;
 }
-export function ProfileItem({title, icon}: ProfileItemProps) {
+export function ProfileItem({title, icon, onPress}: ProfileItemProps) {
     return (
-        <TouchableOpacity style={styles.buttonContainer} onPress={() => {}}>
+        <TouchableOpacity style={styles.buttonContainer} onPress={onPress}>
             <View style={{flexDirection: "row", alignItems: "center", gap: 10}}>
                 <Ionicons name={icon} size={24} color={Colors.primary_1} />
                 <Text style={styles.buttonText}>{title}</Text>

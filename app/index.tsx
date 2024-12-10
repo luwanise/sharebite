@@ -1,12 +1,12 @@
 import { Colors } from "@/assets/Colors";
-import { Image, StatusBar, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { router } from "expo-router";
 
 export default function WelcomeScreen() {
 
   return (
     <View style={styles.container}>
-        <StatusBar translucent hidden />
+        {/* <StatusBar translucent hidden /> */}
         <View style={styles.logoContainer}>
             <Image
                 source={require("../assets/images/icon.png")}

@@ -36,7 +36,6 @@ export default function TabLayout() {
         />
       </Tabs>
 
-      {/* Floating Action Button */}
       <TouchableOpacity
         style={styles.fab}
         onPress={() => router.navigate("/(home)/NewDonation")}

@@ -1,39 +1,31 @@
-import { ActivityIndicator, Image, ScrollView, StyleSheet, Text, ToastAndroid, TouchableOpacity, View } from "react-native";
+import { ActivityIndicator, Image, ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { Colors } from "@/assets/Colors";
 import { CustomTextInput } from "@/components/CustomTextInput";
 import { useState } from "react";
-import { CustomOrSeparator } from "@/components/CustomOrSeparator";
+import { CustomOrSeparator } from "@/components/Authentication/CustomOrSeparator";
 import { Link, router } from "expo-router";
 import IonIcons from "@expo/vector-icons/Ionicons";
 import { Dimens } from "@/assets/Dimens";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "@/firebaseConfig";
+import { showToastError } from "@/utils/showToastError";
+import { Validation } from "@/utils/Validation";
+import { LoadingIndicator } from "@/components/Authentication/LoadingIndicator";
 
 export default function LoginScreen() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [loading, setLoading] = useState(false);
 
-    const validateEmail = () => {
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i;
-        return emailRegex.test(email);
-    }
-    
-    const validatePassword = () => {
-        return password.length > 0;
-    };
-
     const validateForm = () => {
-        if (!validateEmail()) {
+        if (!Validation.validateEmail(email)) {
             setLoading(false);
-            ToastAndroid.show("Please enter a valid email", ToastAndroid.LONG);
-            return false;
+            throw new Error("auth/invalid-email");
         }
       
-        if (!validatePassword()) {
+        if (!Validation.validatePassword(password)) {
             setLoading(false);
-            ToastAndroid.show("Please enter a password", ToastAndroid.LONG);
-            return false;
+            throw new Error("auth/weak-password");
         }
       
         return true;};
@@ -41,37 +33,30 @@ export default function LoginScreen() {
     const signInUser = () => {
         signInWithEmailAndPassword(auth, email, password)
             .then((userCredential) => {
-            // Signed in
-            setLoading(false);
+                // Signed in
+                setLoading(false);
                 const userId = userCredential.user.uid;
-                router.dismissAll();
-                router.replace({
+                router.dismissTo({
                     "pathname": "/(home)",
                     "params": { "userId": userId }
-                });
+                })
             })
             .catch((error) => {
                 setLoading(false);
-                if (error.code === 'auth/invalid-credential') {
-                    ToastAndroid.show('Invalid email or password', ToastAndroid.LONG);
-                } else if (error.code === 'auth/user-not-found') {
-                    ToastAndroid.show('User not found', ToastAndroid.LONG);
-                } else if (error.code === 'auth/wrong-password') {
-                    ToastAndroid.show('Incorrect password', ToastAndroid.LONG);
-                } else if (error.code === 'auth/network-request-failed') {
-                    ToastAndroid.show('Whoops! Looks like we’re having trouble connecting. Please check your internet and give it another go!', ToastAndroid.LONG);
-                } else {
-                    ToastAndroid.show(`An error occurred: ${error.message}`, ToastAndroid.LONG);
-                }
+                showToastError(error.code);
             });
     }    
 
     const handleSignIn = () => {
         setLoading(true);
-        if (!validateForm()) {
-            return;
+        try{
+            validateForm();
+            signInUser();
         }
-        signInUser();
+        catch (error: any) {
+            setLoading(false);
+            showToastError(error.message);
+        }
     }
     
     return (
@@ -113,12 +98,8 @@ export default function LoginScreen() {
             <TouchableOpacity style={styles.googleButton} onPress={() => {}}>
                 <IonIcons name="logo-google" size={24} color={Colors.primary_2} />
                 <Text style={styles.googleButtonText}>Sign Up with Google</Text>
-            </TouchableOpacity>    
-            {loading && (
-                <View style={styles.loaderContainer}>
-                    <ActivityIndicator size="large" color={Colors.primary_2} />
-                </View>
-            )}
+            </TouchableOpacity>
+            <LoadingIndicator loading={loading} />
         </ScrollView>
     )
 }
@@ -202,11 +183,5 @@ const styles = StyleSheet.create({
         fontSize: 16,
         fontFamily: "Lato_400Regular",
         color: Colors.primary_2,
-    },
-    loaderContainer: {
-        ...StyleSheet.absoluteFillObject,
-        justifyContent: 'center',
-        alignItems: 'center',
-        backgroundColor: 'rgba(255, 255, 255, 0.6)',
-    },
+    }
 })

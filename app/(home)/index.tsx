@@ -12,11 +12,6 @@ export default function HomeScreen() {
     const thankYous = getThankYous();
     const donations = getDonations();
 
-    const data = [
-        { type: 'thank yous', data: thankYous },
-        { type: 'donations', data: donations },
-    ]
-
     return (
         <View style={styles.container}>
             <StatusBar translucent hidden />

@@ -1,6 +1,7 @@
 import { Stack } from "expo-router";
 import { useFonts, Montserrat_700Bold } from "@expo-google-fonts/montserrat"
 import { Lato_400Regular } from "@expo-google-fonts/lato"
+import { StatusBar } from "react-native";
 
 export default function RootLayout() {
     let [fontsLoaded] = useFonts({
@@ -11,6 +12,9 @@ export default function RootLayout() {
   if (!fontsLoaded) {
       return null;
   }
+
+  // Hide the status bar
+  StatusBar.setHidden(true);
 
   return (
     <Stack>

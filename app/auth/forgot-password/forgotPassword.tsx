@@ -1,13 +1,16 @@
-import { ActivityIndicator, Image, KeyboardAvoidingView, Platform, ScrollView, StyleSheet, Text, ToastAndroid, TouchableOpacity, View } from "react-native";
+import { Image, KeyboardAvoidingView, Platform, ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { router } from "expo-router";
 import { Colors } from "@/assets/Colors";
 import { Dimens } from "@/assets/Dimens";
 import { CustomTextInput } from "@/components/CustomTextInput";
 import { useState } from "react";
-import PasswordResetErrorAlert from "@/components/PasswordResetErrorAlert";
+import PasswordResetErrorAlert from "@/components/Authentication/PasswordResetErrorAlert";
 import { auth } from "@/firebaseConfig";
 import { sendPasswordResetEmail } from "firebase/auth";
+import { Validation } from "@/utils/Validation";
+import { showToastError } from "@/utils/showToastError";
+import { LoadingIndicator } from "@/components/Authentication/LoadingIndicator";
 
 export default function forgotPassword() {
     const [email, setEmail] = useState("");
@@ -15,16 +18,14 @@ export default function forgotPassword() {
     const [loading, setLoading] = useState(false);
     const [errorMessage, setErrorMessage] = useState("");
 
-    const validateEmail = () => {
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i;
-        
-        if(!emailRegex.test(email)){
-            ToastAndroid.show("Please enter a valid email", ToastAndroid.LONG);
-            return false;
+    const validateForm = () => {
+        if (!Validation.validateEmail(email)) {
+            setLoading(false);
+            throw new Error("auth/invalid-email");
         }
-
+      
         return true;
-    }
+    };
 
     const resetPassword = () => {
         sendPasswordResetEmail(auth, email)
@@ -51,11 +52,14 @@ export default function forgotPassword() {
 
     const handlePasswordReset = () => {
         setLoading(true);
-        if (!validateEmail()) {
-            setLoading(false);
-            return;
+        try{
+            validateForm();
+            resetPassword();
         }
-        resetPassword();
+        catch (error: any) {
+            setLoading(false);
+            showToastError(error.message);
+        }
     }
 
     return (
@@ -99,11 +103,7 @@ export default function forgotPassword() {
                     <PasswordResetErrorAlert visible={visible} setVisible={setVisible} errorMessage={errorMessage} />
                 </View>
             </ScrollView>
-            {loading && (
-                <View style={styles.loaderContainer}>
-                    <ActivityIndicator size="large" color={Colors.primary_2} />
-                </View>
-            )}
+            <LoadingIndicator loading={loading} />
         </KeyboardAvoidingView>
     )
 }
@@ -163,11 +163,5 @@ const styles = StyleSheet.create({
         color: "white",
         fontSize: Dimens.bodySize,
         fontFamily: "Montserrat_700Bold",
-    },
-    loaderContainer: {
-        ...StyleSheet.absoluteFillObject,
-        justifyContent: 'center',
-        alignItems: 'center',
-        backgroundColor: 'rgba(255, 255, 255, 0.6)',
     },
 });

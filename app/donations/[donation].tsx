@@ -7,6 +7,7 @@ import Ionicons from "@expo/vector-icons/Ionicons";
 import { router, useLocalSearchParams } from "expo-router";
 import { useEffect, useState } from "react";
 import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { DonationInfo } from "@/components/Donations/DonationInfo";
 
 export default function DonationsDetailsScreen() {
     const { donation } = useLocalSearchParams();
@@ -34,18 +35,14 @@ export default function DonationsDetailsScreen() {
                         <FoodQuantitySelector foodQuantity={quantity} setFoodQuantity={setQuantity} maxQuantity={details?.quantity ?? 0}/>
                     </View>
                     <Text style={styles.description}>{details?.description}</Text>
-                    <View style={styles.expiryContainer}>
-                        <Text style={styles.expiryLabel}>Expires on:</Text>
-                        <Ionicons name="timer-outline" size={24} color={Colors.secondary_1} />
-                        <Text style={styles.expiry}>{details?.expirationDate.toDateString()}</Text>
-                    </View>
-                    <View>
-                        <Text style={styles.pickupLabel}>Pickup Location:</Text>
-                        <View style={styles.pickupContainer}>
-                            <Ionicons name="location" size={24} color={Colors.secondary_1} />
-                            <Text style={styles.pickupLocation}>{details?.location}</Text>
-                        </View>
-                    </View>
+                    <DonationInfo
+                        label="Expires on:"
+                        icon={"timer-outline"}
+                        info={details?.expirationDate.toDateString()} />
+                    <DonationInfo
+                        label="Pickup Location:" 
+                        icon={"location-outline"} 
+                        info={details?.location} />
                 </View>
                 <TouchableOpacity style={styles.claimDonationButton}>
                     <Text style={styles.claimDonationButtonText}>Claim Donation</Text>
@@ -104,37 +101,6 @@ const styles = StyleSheet.create({
         marginTop: 10,
         fontSize: 16,
         fontStyle: "italic",
-        fontFamily: "Lato_400Regular",
-    },
-    expiryContainer: {
-        flexWrap: "wrap",
-        flexDirection: "row",
-        alignItems: "center",
-        gap: 5,
-    },
-    expiryLabel: {
-        fontSize: 16,
-        fontWeight: "bold",
-        fontFamily: "Lato_400Regular",
-    },
-    expiry: {
-        fontSize: 16,
-        fontFamily: "Lato_400Regular",
-    },
-    pickupLabel: {
-        fontSize: 16,
-        fontWeight: "bold",
-        fontFamily: "Lato_400Regular",
-    },
-    pickupContainer: {
-        flexWrap: "wrap",
-        flexDirection: "row",
-        alignItems: "center",
-        marginTop: 5,
-        gap: 5,
-    },
-    pickupLocation: {
-        fontSize: 16,
         fontFamily: "Lato_400Regular",
     },
     claimDonationButton: {
