@@ -5,12 +5,12 @@ import { HomePageHeader } from "@/components/HomePageHeader";
 import { ThankYouList } from "@/components/ThankYous/ThankYouList";
 import { getThankYous } from "@/utils/firebase/getThankYous";
 import { Donations } from "@/components/Donations/Donations";
-import { getDonations } from "@/utils/firebase/getDonations";
+import useDonations from "@/hooks/useDonations";
 
 export default function HomeScreen() {
     const { userId } = useLocalSearchParams();
     const thankYous = getThankYous();
-    const donations = getDonations();
+    const donations = useDonations();
 
     return (
         <View style={styles.container}>
