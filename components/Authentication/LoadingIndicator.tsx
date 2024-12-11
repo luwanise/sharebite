@@ -7,13 +7,13 @@ interface LoadingIndicatorProps {
 
 export function LoadingIndicator({ loading }: LoadingIndicatorProps) {
     return (
-        <View>
+        <>
             {loading && (
                 <View style={styles.loaderContainer}>
                     <ActivityIndicator size="large" color={Colors.primary_2} />
                 </View>
             )}
-        </View>
+        </>
     )
 }
 
