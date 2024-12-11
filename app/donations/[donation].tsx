@@ -1,23 +1,17 @@
 import { Colors } from "@/assets/Colors";
 import { Dimens } from "@/assets/Dimens";
 import { FoodQuantitySelector } from "@/components/FoodQuantitySelector";
-import { getDonationDetails } from "@/utils/firebase/getDonationDetails";
-import { Donation } from "@/models/Donation";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { router, useLocalSearchParams } from "expo-router";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { DonationInfo } from "@/components/Donations/DonationInfo";
+import { useDonationDetails } from "@/hooks/useDonationDetails";
 
 export default function DonationsDetailsScreen() {
     const { donation } = useLocalSearchParams();
-    const [details, setDetails] = useState<Donation>();
     const [quantity, setQuantity] = useState(1);
-
-    useEffect(() => {
-        const newDetails = getDonationDetails(donation.toString());
-        setDetails(newDetails);
-    }, [])
+    const details = useDonationDetails(donation.toString());
 
     return (
         <View style={styles.container}>
