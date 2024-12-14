@@ -9,8 +9,9 @@ import useDonations from "@/hooks/useDonations";
 
 export default function HomeScreen() {
     const { userId } = useLocalSearchParams();
+
     const thankYous = getThankYous();
-    const donations = useDonations();
+    const { donations, donationsLoading } = useDonations();
 
     return (
         <View style={styles.container}>
@@ -18,7 +19,7 @@ export default function HomeScreen() {
             <HomePageHeader />
             <ScrollView>
                 <ThankYouList data={thankYous} />
-                <Donations data={donations}/>
+                <Donations data={donations} loading={donationsLoading}/>
             </ScrollView>
         </View>
     )

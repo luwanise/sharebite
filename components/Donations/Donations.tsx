@@ -2,11 +2,13 @@ import { Dimens } from "@/assets/Dimens";
 import { Donation } from "@/models/Donation";
 import { FlatList, StyleSheet, Text, View } from "react-native";
 import { DonationsCard } from "./DonationsCard";
+import { LoadingIndicator } from "../Authentication/LoadingIndicator";
 
 interface DonationsProps {
     data: Donation[];
+    loading: boolean;
 }
-export function Donations({ data }: DonationsProps) {
+export function Donations({ data, loading }: DonationsProps) {
     return (
         <View style={styles.container}>
             <Text style={styles.donationsHeading}>Donations</Text>
@@ -19,6 +21,7 @@ export function Donations({ data }: DonationsProps) {
                 showsVerticalScrollIndicator={false}
                 scrollEnabled={false}
             />
+            <LoadingIndicator loading={loading} bgOverlay={false} />
         </View>
     )
 }

@@ -1,12 +1,15 @@
 import { db } from "@/firebaseConfig";
 import { Donation } from "@/models/Donation";
-import { collection, getDocs, Timestamp } from "firebase/firestore";
+import { showToastError } from "@/utils/showToastError";
+import { collection, getDocs } from "firebase/firestore";
 import { useEffect, useState } from "react";
 
 export default function useDonations() {
     const [donations, setDonations] = useState<Donation[]>([]);
+    const [donationsLoading, setDonationsLoading] = useState(false);
     
     useEffect(() => {
+        setDonationsLoading(true);
         const getDonations = async() => {
             try {
                 const querySnapshot = await getDocs(collection(db, "donations"));
@@ -21,13 +24,16 @@ export default function useDonations() {
                 }));
         
                 setDonations(donations);
+                setDonationsLoading(false);
             } catch (error) {
                 console.error(error);
+                showToastError(`Error getting donations: ${error}`);
+                setDonationsLoading(false);
             }
         }
 
         getDonations();
     }, []);
 
-    return donations;
+    return {donations, donationsLoading};
 }
