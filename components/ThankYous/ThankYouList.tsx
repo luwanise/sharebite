@@ -2,11 +2,13 @@ import { FlatList, StyleSheet, Text, View } from "react-native";
 import { ThankYouCard } from "./ThankYouCard";
 import { ThankYou } from "@/models/ThankYou";
 import { Dimens } from "@/assets/Dimens";
+import { LoadingIndicator } from "../Authentication/LoadingIndicator";
 
 interface ThankYouListProps {
     data: ThankYou[];
+    loading: boolean;
 }
-export function ThankYouList({data}: ThankYouListProps) {
+export function ThankYouList({data, loading}: ThankYouListProps) {
     return (
         <View>
             <Text style={styles.impact}>Our Impact</Text>
@@ -19,6 +21,7 @@ export function ThankYouList({data}: ThankYouListProps) {
                 showsHorizontalScrollIndicator={false}
                 horizontal
             />
+            <LoadingIndicator loading={loading} bgOverlay={false} />
         </View>
     )
 }
