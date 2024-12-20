@@ -19,8 +19,17 @@ export default function NewDonationScreen() {
     const [location, setLocation] = useState("");
     const [loading, setLoading] = useState(false);
 
+    const resetForm = () => {
+        setImage("");
+        setFoodName("");
+        setDescription(""); 
+        setQuantity(1);
+        setExpirationDate(new Date());
+        setLocation("");
+    }
     const handleNewDonation = async () => {
         await makeDonation({ foodName, quantity, expirationDate, location, description, image }, setLoading);
+        resetForm();
         router.back();
     }
 
