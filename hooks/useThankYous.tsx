@@ -8,32 +8,32 @@ export default function useThankYous() {
     const [thankYous, setThankYous] = useState<ThankYou[]>([]);
     const [thanksLoading, setThanksLoading] = useState(false);
     
-    useEffect(() => {
+    const getThankYous = async() => {
         setThanksLoading(true);
-        const getThankYous = async() => {
-            try {
-                const querySnapshot = await getDocs(collection(db, "thankyous"));
-                const thankYous = querySnapshot.docs.map((doc) => ({
-                    id: doc.id,
-                    name: doc.data().name,
-                    message: doc.data().message,
-                    date: doc.data().date.toDate(),
-                    image: doc.data().image,
-                    city: doc.data().city,
-                    state: doc.data().state
-                }));
-        
-                setThankYous(thankYous);
-                setThanksLoading(false);
-            } catch (error) {
-                console.error(error);
-                showToastError(`Error getting thank you cards: ${error}`);
-                setThanksLoading(false);
-            }
+        try {
+            const querySnapshot = await getDocs(collection(db, "thankyous"));
+            const thankYous = querySnapshot.docs.map((doc) => ({
+                id: doc.id,
+                name: doc.data().name,
+                message: doc.data().message,
+                date: doc.data().date.toDate(),
+                image: doc.data().image,
+                city: doc.data().city,
+                state: doc.data().state
+            }));
+    
+            setThankYous(thankYous);
+            setThanksLoading(false);
+        } catch (error) {
+            console.error(error);
+            showToastError(`Error getting thank you cards: ${error}`);
+            setThanksLoading(false);
         }
+    }
 
+    useEffect(() => {
         getThankYous();
     }, []);
 
-    return {thankYous, thanksLoading};
+    return {thankYous, thanksLoading, refreshThankYous: getThankYous};
 }
