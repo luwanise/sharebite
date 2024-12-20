@@ -1,5 +1,6 @@
 import { Colors } from "@/assets/Colors";
 import { Dimens } from "@/assets/Dimens";
+import { auth } from "@/firebaseConfig";
 import { Image, StyleSheet, Text, View } from "react-native";
 
 export function ProfileHeader() {
@@ -9,8 +10,8 @@ export function ProfileHeader() {
                 source={require("../../assets/images/design-resources/profile-placeholder.png")}
                 style={styles.profileImage}
             />
-            <Text style={styles.name}>Name</Text>
-            <Text style={styles.email}>emailaddress@gmail.com</Text>
+            <Text style={styles.name}>{auth.currentUser?.displayName}</Text>
+            <Text style={styles.email}>{auth.currentUser?.email}</Text>
         </View>
     )
 }
