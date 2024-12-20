@@ -1,5 +1,5 @@
 export type Donation = {
-    id: string;
+    id?: string;
     foodName: string;
     quantity: number;
     expirationDate: Date;

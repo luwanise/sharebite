@@ -1,9 +1,12 @@
 import { Colors } from "@/assets/Colors";
 import { Dimens } from "@/assets/Dimens";
+import { LoadingIndicator } from "@/components/Authentication/LoadingIndicator";
 import { CustomTextInput } from "@/components/CustomTextInput";
 import { FoodQuantitySelector } from "@/components/FoodQuantitySelector";
 import { ExpirationDateSelector } from "@/components/NewDonation/ExpirationDateSelector";
 import { ImageSelector } from "@/components/NewDonation/ImageSelector";
+import { makeDonation } from "@/utils/NewDonation/makeDonation";
+import { router } from "expo-router";
 import { useState } from "react";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
@@ -14,6 +17,12 @@ export default function NewDonationScreen() {
     const [quantity, setQuantity] = useState(1);
     const [expirationDate, setExpirationDate] = useState(new Date());
     const [location, setLocation] = useState("");
+    const [loading, setLoading] = useState(false);
+
+    const handleNewDonation = async () => {
+        await makeDonation({ foodName, quantity, expirationDate, location, description, image }, setLoading);
+        router.back();
+    }
 
     return (
         <View style={styles.container}>
@@ -51,9 +60,10 @@ export default function NewDonationScreen() {
                     placeholder="Enter location"
                 />
             </View>
-            <TouchableOpacity style={styles.donateButton}>
+            <TouchableOpacity style={styles.donateButton} onPress={async() => await handleNewDonation()}>
                 <Text style={styles.donateButtonText}>Donate</Text>
             </TouchableOpacity>
+            <LoadingIndicator loading={loading} />
         </View>
     )
 }
