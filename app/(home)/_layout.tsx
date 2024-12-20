@@ -1,6 +1,7 @@
 import { Colors } from '@/assets/Colors';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { router, Tabs } from 'expo-router';
+import React from 'react';
 import { TouchableOpacity, StyleSheet } from 'react-native';
 
 export default function TabLayout() {

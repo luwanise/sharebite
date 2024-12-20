@@ -25,6 +25,7 @@ export default function RootLayout() {
       <Stack.Screen name="auth/forgot-password/PasswordReset" options={{ headerShown: false }} />
       <Stack.Screen name="(home)" options={{ headerShown: false }} />
       <Stack.Screen name="donations/[donation]" options={{ headerShown: false }} />
+      <Stack.Screen name="profile-pages/EditProfile" options={{ headerShown: false }} />
     </Stack>
   )
 }

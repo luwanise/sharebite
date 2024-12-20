@@ -10,7 +10,7 @@ export default function ProfileScreen() {
         <View style={styles.container}>
             <ProfileHeader />
             <View style={styles.profileItemContainer}>
-                <ProfileItem title="Edit Profile" icon="person-outline" onPress={() => {}} />
+                <ProfileItem title="Edit Profile" icon="person-outline" onPress={() => router.push("/profile-pages/EditProfile")} />
                 <ProfileItem title="Donations given" icon="gift-outline" onPress={() => {}} />
                 <ProfileItem title="Donations claimed" icon="fast-food-outline" onPress={() => {}} />
                 <ProfileItem title="Change Password" icon="key-outline" onPress={() => {}} />
