@@ -8,7 +8,7 @@ import { ImageSelector } from "@/components/NewDonation/ImageSelector";
 import { makeDonation } from "@/utils/NewDonation/makeDonation";
 import { router } from "expo-router";
 import { useState } from "react";
-import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { KeyboardAvoidingView, Platform, ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
 export default function NewDonationScreen() {
     const [image, setImage] = useState("");
@@ -25,55 +25,69 @@ export default function NewDonationScreen() {
     }
 
     return (
-        <View style={styles.container}>
-            <Text style={styles.header}>Create a new donation</Text>
-            <ImageSelector 
-                image={image} 
-                setImage={setImage} 
-            />
-            <View style={styles.inputContainer}>
-                <CustomTextInput
-                    label="Food Name"
-                    value={foodName}
-                    onChangeText={setFoodName}
-                    placeholder="Enter food name"
+        <KeyboardAvoidingView
+            behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+            style={styles.container}
+        >
+            <ScrollView
+                contentContainerStyle={styles.scrollContainer}
+                keyboardShouldPersistTaps="handled"
+            >
+                <Text style={styles.header}>Create a new donation</Text>
+                <ImageSelector 
+                    image={image} 
+                    setImage={setImage} 
                 />
-                <CustomTextInput
-                    label="Description"
-                    value={description}
-                    onChangeText={setDescription}
-                    placeholder="Enter description"
-                />
-                <View style={styles.quantityAndExpiration}>
-                    <FoodQuantitySelector
-                        foodQuantity={quantity}
-                        setFoodQuantity={setQuantity}
-                        maxQuantity={1000}
-                        heading
+                <View style={styles.inputContainer}>
+                    <CustomTextInput
+                        label="Food Name"
+                        value={foodName}
+                        onChangeText={setFoodName}
+                        placeholder="Enter food name"
                     />
-                    <ExpirationDateSelector expirationDate={expirationDate} setExpirationDate={setExpirationDate} />
+                    <CustomTextInput
+                        label="Description"
+                        value={description}
+                        onChangeText={setDescription}
+                        placeholder="Enter description"
+                    />
+                    <View style={styles.quantityAndExpiration}>
+                        <FoodQuantitySelector
+                            foodQuantity={quantity}
+                            setFoodQuantity={setQuantity}
+                            maxQuantity={1000}
+                            heading
+                        />
+                        <ExpirationDateSelector 
+                            expirationDate={expirationDate}
+                            setExpirationDate={setExpirationDate}
+                        />
+                    </View>
+                    <CustomTextInput
+                        label="Location"
+                        value={location}
+                        onChangeText={setLocation}
+                        placeholder="Enter location"
+                    />
                 </View>
-                <CustomTextInput
-                    label="Location"
-                    value={location}
-                    onChangeText={setLocation}
-                    placeholder="Enter location"
-                />
-            </View>
-            <TouchableOpacity style={styles.donateButton} onPress={async() => await handleNewDonation()}>
-                <Text style={styles.donateButtonText}>Donate</Text>
-            </TouchableOpacity>
-            <LoadingIndicator loading={loading} />
-        </View>
+                <TouchableOpacity style={styles.donateButton} onPress={async() => await handleNewDonation()}>
+                    <Text style={styles.donateButtonText}>Donate</Text>
+                </TouchableOpacity>
+                <LoadingIndicator loading={loading} />
+            </ScrollView>
+        </KeyboardAvoidingView>
     )
 }
 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
+        backgroundColor: Colors.background_1,
+    },
+    scrollContainer: {
+        flexGrow: 1,
         justifyContent: "space-between",
         alignItems: "center",
-        backgroundColor: Colors.background_1,
         padding: Dimens.padding,
         gap: Dimens.padding
     },
