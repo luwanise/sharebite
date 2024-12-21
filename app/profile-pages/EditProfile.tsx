@@ -1,21 +1,41 @@
 import { Colors } from "@/assets/Colors";
 import { Dimens } from "@/assets/Dimens";
+import { LoadingIndicator } from "@/components/Authentication/LoadingIndicator";
 import { CustomTextInput } from "@/components/CustomTextInput";
 import { ImageSelector } from "@/components/NewDonation/ImageSelector";
 import { CountrySelector } from "@/components/Profile/CountrySelector";
 import { auth } from "@/firebaseConfig";
+import { User } from "@/models/User";
+import { updateUserDetails } from "@/utils/Profile/updateUserDetails";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { router } from "expo-router";
 import { useState } from "react";
-import { KeyboardAvoidingView, Platform, ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { KeyboardAvoidingView, Platform, ScrollView, StyleSheet, Text, ToastAndroid, TouchableOpacity, View } from "react-native";
 import { Country } from "react-native-country-picker-modal";
 
 export default function EditProfile() {
-    const [image, setImage] = useState("");
+    const [profilePic, setProfilePic] = useState("");
     const [username, setUsername] = useState(auth.currentUser?.displayName || "");
     const [email, setEmail] = useState(auth.currentUser?.email || "");
     const [phoneNumber, setPhoneNumber] = useState("");
     const [countryCode, setCountryCode] = useState<Country['cca2']>("US");
+    const [loading, setLoading] = useState(false);
+
+    const handleSaveChanges = async () => {
+        setLoading(true);
+
+        const userDetails: User = {
+            id: auth.currentUser?.uid,
+            profilePic,
+            username,
+            email,
+            phoneNumber,
+            countryCode
+        }
+        
+        await updateUserDetails(userDetails, setLoading);
+        ToastAndroid.show("Profile updated successfully", ToastAndroid.SHORT);
+    }
 
     return (
         <KeyboardAvoidingView
@@ -34,8 +54,8 @@ export default function EditProfile() {
                 keyboardShouldPersistTaps="handled"
             >
                 <ImageSelector
-                    image={image}
-                    setImage={setImage}
+                    image={profilePic}
+                    setImage={setProfilePic}
                     asProfileIcon
                 />
                 <CustomTextInput
@@ -43,7 +63,7 @@ export default function EditProfile() {
                     value={username}
                     onChangeText={setUsername}
                     placeholder="Enter username"
-                    inputMode="none"
+                    inputMode="text"
                 />
                 <CustomTextInput
                     label="Email"
@@ -60,10 +80,11 @@ export default function EditProfile() {
                     inputMode="tel"
                 />
                 <CountrySelector countryCode={countryCode} setCountryCode={setCountryCode}/>
-                <TouchableOpacity style={styles.saveChangesButton} onPress={() => {}}>
+                <TouchableOpacity style={styles.saveChangesButton} onPress={async() => await handleSaveChanges()}>
                     <Text style={styles.saveChangesText}>Save Changes</Text>
                 </TouchableOpacity>
             </ScrollView>
+            <LoadingIndicator loading={loading} />
         </KeyboardAvoidingView>
     )
 }
