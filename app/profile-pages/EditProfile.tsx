@@ -1,11 +1,70 @@
 import { Colors } from "@/assets/Colors";
-import { StyleSheet, View } from "react-native";
+import { Dimens } from "@/assets/Dimens";
+import { CustomTextInput } from "@/components/CustomTextInput";
+import { ImageSelector } from "@/components/NewDonation/ImageSelector";
+import { CountrySelector } from "@/components/Profile/CountrySelector";
+import { auth } from "@/firebaseConfig";
+import Ionicons from "@expo/vector-icons/Ionicons";
+import { router } from "expo-router";
+import { useState } from "react";
+import { KeyboardAvoidingView, Platform, ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { Country } from "react-native-country-picker-modal";
 
 export default function EditProfile() {
+    const [image, setImage] = useState("");
+    const [username, setUsername] = useState(auth.currentUser?.displayName || "");
+    const [email, setEmail] = useState(auth.currentUser?.email || "");
+    const [phoneNumber, setPhoneNumber] = useState("");
+    const [countryCode, setCountryCode] = useState<Country['cca2']>("US");
+
     return (
-        <View style={styles.container}>
-            
-        </View>
+        <KeyboardAvoidingView
+            behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+            style={styles.container}
+        >
+            <View style={styles.headerContainer}>
+                <TouchableOpacity onPress={() => router.back()}>
+                    <Ionicons name="chevron-back" size={24} color={Colors.primary_2} />
+                </TouchableOpacity>
+                <Text style={styles.header}>Edit Profile</Text>
+                <View />
+            </View>
+            <ScrollView
+                contentContainerStyle={styles.scrollContainer}
+                keyboardShouldPersistTaps="handled"
+            >
+                <ImageSelector
+                    image={image}
+                    setImage={setImage}
+                    asProfileIcon
+                />
+                <CustomTextInput
+                    label="Username"
+                    value={username}
+                    onChangeText={setUsername}
+                    placeholder="Enter username"
+                    inputMode="none"
+                />
+                <CustomTextInput
+                    label="Email"
+                    value={email}
+                    onChangeText={setEmail}
+                    placeholder="Enter email"
+                    readonly
+                />
+                <CustomTextInput
+                    label="Phone Number"
+                    value={phoneNumber}
+                    onChangeText={setPhoneNumber}
+                    placeholder="Enter phone number"
+                    inputMode="tel"
+                />
+                <CountrySelector countryCode={countryCode} setCountryCode={setCountryCode}/>
+                <TouchableOpacity style={styles.saveChangesButton} onPress={() => {}}>
+                    <Text style={styles.saveChangesText}>Save Changes</Text>
+                </TouchableOpacity>
+            </ScrollView>
+        </KeyboardAvoidingView>
     )
 }
 
@@ -13,5 +72,37 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: Colors.background_1
-    }
+    },
+    headerContainer: {
+        width: '100%',
+        flexDirection: "row",
+        alignItems: "center",
+        justifyContent: "space-between",
+        padding: Dimens.padding,
+    },
+    scrollContainer: {
+        flexGrow: 1,
+        justifyContent: "space-between",
+        alignItems: "center",
+        padding: Dimens.padding,
+        gap: Dimens.padding
+    },
+    header: {
+        fontSize: 20,
+        textAlign: "center",
+        fontFamily: "Montserrat_700Bold",
+    },
+    saveChangesButton: {
+        backgroundColor: Colors.primary_1,
+        padding: 15,
+        borderRadius: Dimens.buttonBorderRadius,
+        marginBottom: 10,
+        width: "100%"
+    },
+    saveChangesText: {
+        fontSize: Dimens.buttonText,
+        fontFamily: "Montserrat_700Bold",
+        color: Colors.background_1,
+        textAlign: "center",
+    },
 })

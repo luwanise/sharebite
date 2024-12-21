@@ -5,23 +5,37 @@ import { Image, StyleSheet, TouchableOpacity, View } from "react-native";
 
 interface ImageSelectorProps {
     image: string;
-    setImage: CallableFunction;
+    setImage: (image: string) => void;
+    asProfileIcon?: boolean;
 }
-export function ImageSelector({image, setImage}: ImageSelectorProps) {
+
+export function ImageSelector({ image, setImage, asProfileIcon = false }: ImageSelectorProps) {
     return (
         <View>
-            <TouchableOpacity style={styles.imageContainer} onPress={() => {pickImage(setImage)}}>
-                <Ionicons name="camera" size={40} color={Colors.primary_1} style={styles.cameraIcon}/>
-                {image && <Image source={{ uri: image }} style={styles.image} />}
+            <TouchableOpacity
+                style={[styles.imageContainer, asProfileIcon && styles.profileIcon]}
+                onPress={() => pickImage(setImage)}
+            >
+                <Ionicons name="camera" size={40} color={Colors.primary_1} style={styles.cameraIcon} key="camera-icon" />
+                {image && (
+                    <Image
+                        source={{ uri: image }}
+                        style={[styles.image, asProfileIcon && styles.profileIcon]}
+                        alt="Selected image"
+                    />
+                )}
             </TouchableOpacity>
 
-            {image && 
-            <TouchableOpacity style={styles.removeImage} onPress={() => {setImage("")}}>
-                <Ionicons name="close-circle" size={24} color={"#0007"} />
-            </TouchableOpacity>
-            }
+            {image && (
+                <TouchableOpacity
+                    style={[styles.removeImage, asProfileIcon && styles.profileRemoveImage]}
+                    onPress={() => setImage("")}
+                >
+                    <Ionicons name="close-circle" size={24} color={"#0007"} key="close-icon" />
+                </TouchableOpacity>
+            )}
         </View>
-    )
+    );
 }
 
 const styles = StyleSheet.create({
@@ -34,6 +48,10 @@ const styles = StyleSheet.create({
         borderColor: Colors.primary_1,
         justifyContent: "center",
         alignItems: "center",
+    },
+    profileIcon: {
+        borderRadius: 75,
+        width: 150,
     },
     cameraIcon: {
         position: "absolute",
@@ -48,5 +66,10 @@ const styles = StyleSheet.create({
         position: "absolute",
         top: -10,
         right: -10,
+    },
+    profileRemoveImage: {
+        position: "absolute",
+        top: 7,
+        right: 7,
     }
 })

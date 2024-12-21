@@ -1,6 +1,6 @@
 import { Colors } from '@/assets/Colors';
 import React from 'react';
-import { View, TextInput, Text, StyleSheet } from 'react-native';
+import { View, TextInput, Text, StyleSheet, InputModeOptions } from 'react-native';
 
 interface CustomTextInputProps {
     label: string;
@@ -8,8 +8,18 @@ interface CustomTextInputProps {
     onChangeText: (text: string) => void;
     placeholder: string;
     secureTextEntry?: boolean;
+    readonly?: boolean;
+    inputMode?: InputModeOptions;
 }
-export function CustomTextInput({label, value, onChangeText, placeholder, secureTextEntry = false }: CustomTextInputProps) {
+export function CustomTextInput({
+  label, 
+  value, 
+  onChangeText, 
+  placeholder, 
+  secureTextEntry = false, 
+  readonly = false, 
+  inputMode
+}: CustomTextInputProps) {
   return (
     <View style={styles.container}>
       {/* Label */}
@@ -17,7 +27,11 @@ export function CustomTextInput({label, value, onChangeText, placeholder, secure
 
       {/* Input field */}
       <TextInput
-        style={styles.input}
+        style={[
+          styles.input,
+          readonly && styles.readOnlyInput
+        ]}
+        
         value={value}
         onChangeText={onChangeText}
         placeholder={placeholder}
@@ -25,6 +39,8 @@ export function CustomTextInput({label, value, onChangeText, placeholder, secure
         secureTextEntry={secureTextEntry}
         autoCapitalize="none"
         autoCorrect={false}
+        readOnly={readonly}
+        inputMode={inputMode}
       />
     </View>
   );
@@ -48,5 +64,8 @@ const styles = StyleSheet.create({
     paddingLeft: 15,
     fontSize: 16,
     backgroundColor: Colors.secondary_2,
+  },
+  readOnlyInput: {
+    opacity: 0.5,
   },
 });
