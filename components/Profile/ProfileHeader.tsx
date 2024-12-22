@@ -6,10 +6,17 @@ import { Image, StyleSheet, Text, View } from "react-native";
 export function ProfileHeader() {
     return (
         <View style={styles.container}>
-            <Image
-                source={require("../../assets/images/design-resources/profile-placeholder.png")}
-                style={styles.profileImage}
-            />
+            {auth.currentUser?.photoURL ? (
+                <Image
+                    source={{ uri: auth.currentUser.photoURL }}
+                    style={styles.profileImage}
+                />
+            ) : (
+                <Image
+                    source={require("../../assets/images/design-resources/profile-placeholder.png")}
+                    style={styles.profileImage}
+                />
+            )}
             <Text style={styles.name}>{auth.currentUser?.displayName}</Text>
             <Text style={styles.email}>{auth.currentUser?.email}</Text>
         </View>
