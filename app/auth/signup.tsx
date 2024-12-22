@@ -5,7 +5,7 @@ import { useState } from "react";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { router } from "expo-router";
 import { Dimens } from "@/assets/Dimens";
-import { createUserWithEmailAndPassword } from "firebase/auth";
+import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { auth } from "@/firebaseConfig";
 import { Validation } from "@/utils/Validation";
 import { showToastError } from "@/utils/showToastError";
@@ -45,7 +45,12 @@ const validateForm = () => {
 const signUpUser = () => {
     createUserWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
-        // Signed up
+        // Update username to auth
+        if (auth.currentUser) {
+            updateProfile(auth.currentUser, {
+                displayName: name,
+            });
+        }
         setLoading(false);
         router.dismissTo({
             "pathname": "/(home)",
