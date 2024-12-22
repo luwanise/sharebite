@@ -6,15 +6,16 @@ import { ImageSelector } from "@/components/NewDonation/ImageSelector";
 import { CountrySelector } from "@/components/Profile/CountrySelector";
 import { auth } from "@/firebaseConfig";
 import { User } from "@/models/User";
+import { getUserDetails } from "@/utils/Profile/getUserDetails";
 import { updateUserDetails } from "@/utils/Profile/updateUserDetails";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { router } from "expo-router";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { KeyboardAvoidingView, Platform, ScrollView, StyleSheet, Text, ToastAndroid, TouchableOpacity, View } from "react-native";
 import { Country } from "react-native-country-picker-modal";
 
 export default function EditProfile() {
-    const [profilePic, setProfilePic] = useState("");
+    const [profilePic, setProfilePic] = useState(auth.currentUser?.photoURL || "");
     const [username, setUsername] = useState(auth.currentUser?.displayName || "");
     const [email, setEmail] = useState(auth.currentUser?.email || "");
     const [phoneNumber, setPhoneNumber] = useState("");
@@ -36,6 +37,23 @@ export default function EditProfile() {
         await updateUserDetails(userDetails, setLoading);
         ToastAndroid.show("Profile updated successfully", ToastAndroid.SHORT);
     }
+
+    const loadUserDetails = async () => {
+        setLoading(true);
+        const userDetails = await getUserDetails(auth.currentUser?.uid);
+        if (userDetails){
+            setProfilePic(userDetails.profilePic);
+            setUsername(userDetails.username);
+            setEmail(userDetails.email);
+            setPhoneNumber(userDetails.phoneNumber);
+            setCountryCode(userDetails.countryCode);
+        }
+        setLoading(false);
+    };
+
+    useEffect(() => {
+        loadUserDetails();
+    }, []);
 
     return (
         <KeyboardAvoidingView

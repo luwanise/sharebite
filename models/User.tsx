@@ -1,8 +1,10 @@
+import { Country } from "react-native-country-picker-modal";
+
 export type User = {
     id?: string;
     profilePic: string;
     username: string;
     email: string;
     phoneNumber: string;
-    countryCode: string;
+    countryCode: Country['cca2'];
 }

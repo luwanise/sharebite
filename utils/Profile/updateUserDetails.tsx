@@ -10,7 +10,7 @@ export const updateUserDetails = async (userDetails: User, setLoading: (loading:
     
     try {
         userDetails.profilePic = await uploadImage(userDetails.profilePic);
-        await uploadDoc("users", userDetails);
+        await uploadDoc("users", userDetails, auth.currentUser?.uid);
 
         if (auth.currentUser) {
             await updateProfile(auth.currentUser, {
