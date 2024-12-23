@@ -4,14 +4,38 @@ import { FoodQuantitySelector } from "@/components/FoodQuantitySelector";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { router, useLocalSearchParams } from "expo-router";
 import { useState } from "react";
-import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { Image, StyleSheet, Text, ToastAndroid, TouchableOpacity, View } from "react-native";
 import { DonationInfo } from "@/components/Donations/DonationInfo";
 import { useDonationDetails } from "@/hooks/useDonationDetails";
+import { updateDonationQuantity } from "@/utils/DonationDetails/updateDonationQuantity";
 
 export default function DonationsDetailsScreen() {
     const { donation } = useLocalSearchParams();
     const [quantity, setQuantity] = useState(1);
     const details = useDonationDetails(donation.toString());
+
+    const claimDonation = async () => {
+    // First reduce the number of items available in donation
+    if (details) {
+        updateDonationQuantity(details, quantity);
+    } else {
+        ToastAndroid.show("Donation details not available", ToastAndroid.SHORT);
+    }
+
+    // Then create a new Donation object, set recipientId to auth uid
+    
+    
+    // Upload the new donation to claimedDonations collection
+    
+    
+    // Change button to green and text to "Claimed"
+    
+    
+    // Remove onPress functionality from button
+    
+    
+    // Send a Toast message about donation being claimed
+    }
 
     return (
         <View style={styles.container}>

@@ -7,4 +7,5 @@ export type Donation = {
     description: string;
     image: string;
     donorId?: string;
+    recipientId?: string;
 }
