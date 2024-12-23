@@ -4,10 +4,11 @@ import { Donations } from "@/components/Donations/Donations";
 import useDonations from "@/hooks/useDonations";
 import { useState } from "react";
 import { DonationsGivenHeader } from "@/components/Profile/DonationsGivenHeader";
+import { auth } from "@/firebaseConfig";
 
 export default function DonationsGiven() {
 
-    const { donations, donationsLoading, refreshDonations } = useDonations();
+    const { donations, donationsLoading, refreshDonations } = useDonations(auth.currentUser?.uid);
     const [refreshing, setRefreshing] = useState(false);
 
     return (

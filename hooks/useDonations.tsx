@@ -1,17 +1,21 @@
 import { db } from "@/firebaseConfig";
 import { Donation } from "@/models/Donation";
 import { showToastError } from "@/utils/showToastError";
-import { collection, getDocs } from "firebase/firestore";
+import { collection, DocumentData, getDocs, Query, query, where } from "firebase/firestore";
 import { useEffect, useState } from "react";
 
-export default function useDonations() {
+export default function useDonations(donorId?: string) {
     const [donations, setDonations] = useState<Donation[]>([]);
     const [donationsLoading, setDonationsLoading] = useState(false);
     
     const getDonations = async() => {
         setDonationsLoading(true);
         try {
-            const querySnapshot = await getDocs(collection(db, "donations"));
+            let q = collection(db, "donations") as Query<DocumentData>;
+            if (donorId) {
+                q = query(q, where("donorId", "==", donorId));
+            }
+            const querySnapshot = await getDocs(q);
             const donations = querySnapshot.docs.map((doc) => ({
                 id: doc.id,
                 foodName: doc.data().foodName,
