@@ -1,18 +1,23 @@
 import { Colors } from "@/assets/Colors";
 import { Dimens } from "@/assets/Dimens";
-import { Image, StyleSheet, Text, View } from "react-native";
+import Ionicons from "@expo/vector-icons/Ionicons";
+import { router } from "expo-router";
+import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
 export function DonationsGivenHeader() {
     return (
         <View style={styles.headerContainer}>
-                <View style={styles.headerTextContainer}>
-                    <Text style={styles.heading}>Your Generosity in Action!</Text>
-                    <Text style={styles.subHeading}>Thank You for Your Incredible Support and Helping Us Create Change!</Text>
-                </View>
-                <Image
-                    source={require("../../assets/images/design-resources/signup_image.png")}
-                    style={styles.headerImage}
-                />
+            <View style={styles.headerTextContainer}>
+                <Text style={styles.heading}>Your Generosity in Action!</Text>
+                <Text style={styles.subHeading}>Thank You for Making a Difference!</Text>
+            </View>
+            <Image
+                source={require("../../assets/images/design-resources/signup_image.png")}
+                style={styles.headerImage}
+            />
+            <TouchableOpacity style={styles.back} onPress={() => router.back()}>
+                <Ionicons name="chevron-back" size={24} color={Colors.background_1} />
+            </TouchableOpacity>
         </View>
     )
 }
@@ -34,7 +39,7 @@ const styles = StyleSheet.create({
         flex: 1,
         height: "100%",
         flexDirection: "column",
-        paddingTop: 40,
+        paddingTop: 60,
         gap: Dimens.padding,
     },
     heading: {
@@ -51,5 +56,11 @@ const styles = StyleSheet.create({
         width: 160,
         height: 160,
         resizeMode: "contain",
+    },
+    back: {
+        position: "absolute",
+        top: 15,
+        left: 10,
+        padding: 10,
     }
 })
