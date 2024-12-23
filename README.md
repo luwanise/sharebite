@@ -6,7 +6,6 @@ A simple food donation app that allows users to donate and claim food based on a
 
 - **User Authentication:** Donors and recipients can create accounts and log in.
 - **Donation Listings:** Donors can post food items, and recipients can view and claim donations.
-- **Location-based Filtering:** Donations are listed based on proximity.
 - **Simple Notifications:** Users are notified when new donations are posted.
 
 ## Tech Stack
