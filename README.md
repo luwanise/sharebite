@@ -48,6 +48,7 @@ Here are some screenshots of the app:
   <img src="screenshots/home.jpg" alt="Login Screen" style="width: 24%; margin: 0.5%;" />
   <img src="screenshots/sign-up.jpg" alt="Signup Screen" style="width: 24%; margin: 0.5%;" />
   <img src="screenshots/login.jpg" alt="Home Screen" style="width: 24%; margin: 0.5%;" />
+  <img src="screenshots/forgot-password.jpg" alt="Home Screen" style="width: 24%; margin: 0.5%;" />
   <img src="screenshots/new-donation.jpg" alt="New Donation Screen" style="width: 24%; margin: 0.5%;" />
   <img src="screenshots/donation-details.jpg" alt="Claim Donation" style="width: 24%; margin: 0.5%;" />
   <img src="screenshots/profile.jpg" alt="Profile Screen" style="width: 24%; margin: 0.5%;" />
