@@ -12,8 +12,7 @@ A simple food donation app that allows users to donate and claim food based on a
 ## Tech Stack
 
 - **Frontend:** React Native with Expo
-- **Backend:** Not yet implemented
-- **Database:** Not yet implemented
+- **Database:** Firebase Firestore
 - **Authentication:** Firebase Authentication
 
 ## Setup
