@@ -4,7 +4,7 @@ import { showToastError } from "@/utils/showToastError";
 import { collection, DocumentData, getDocs, Query, query, where } from "firebase/firestore";
 import { useEffect, useState } from "react";
 
-export default function useDonations(donorId?: string) {
+export default function useDonations(donorId?: string, recipientId?: string) {
     const [donations, setDonations] = useState<Donation[]>([]);
     const [donationsLoading, setDonationsLoading] = useState(false);
     
@@ -14,6 +14,10 @@ export default function useDonations(donorId?: string) {
             let q = collection(db, "donations") as Query<DocumentData>;
             if (donorId) {
                 q = query(q, where("donorId", "==", donorId));
+            }
+            if (recipientId) {
+                q = collection(db, "claimedDonations") as Query<DocumentData>;
+                q = query(q, where("recipientId", "==", recipientId));
             }
             const querySnapshot = await getDocs(q);
             const donations = querySnapshot.docs.map((doc) => ({
