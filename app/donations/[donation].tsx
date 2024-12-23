@@ -8,33 +8,24 @@ import { Image, StyleSheet, Text, ToastAndroid, TouchableOpacity, View } from "r
 import { DonationInfo } from "@/components/Donations/DonationInfo";
 import { useDonationDetails } from "@/hooks/useDonationDetails";
 import { updateDonationQuantity } from "@/utils/DonationDetails/updateDonationQuantity";
+import { auth } from "@/firebaseConfig";
+import { claimDonation } from "@/utils/DonationDetails/claimDonation";
 
 export default function DonationsDetailsScreen() {
     const { donation } = useLocalSearchParams();
     const [quantity, setQuantity] = useState(1);
+    const [isClaimed, setIsClaimed] = useState(false); // Add state to track if donation is claimed
     const details = useDonationDetails(donation.toString());
 
-    const claimDonation = async () => {
-    // First reduce the number of items available in donation
-    if (details) {
-        updateDonationQuantity(details, quantity);
-    } else {
-        ToastAndroid.show("Donation details not available", ToastAndroid.SHORT);
-    }
-
-    // Then create a new Donation object, set recipientId to auth uid
-    
-    
-    // Upload the new donation to claimedDonations collection
-    
-    
-    // Change button to green and text to "Claimed"
-    
-    
-    // Remove onPress functionality from button
-    
-    
-    // Send a Toast message about donation being claimed
+    const handleClaimDonation = async () => {
+        if (details) {
+            await updateDonationQuantity(details, quantity);
+            await claimDonation(details, quantity);
+            setIsClaimed(true);
+            ToastAndroid.show("Donation claimed successfully", ToastAndroid.SHORT);
+        } else {
+            ToastAndroid.show("Donation details not available", ToastAndroid.SHORT);
+        }
     }
 
     return (
@@ -62,8 +53,13 @@ export default function DonationsDetailsScreen() {
                         icon={"location-outline"} 
                         info={details?.location} />
                 </View>
-                <TouchableOpacity style={styles.claimDonationButton}>
-                    <Text style={styles.claimDonationButtonText}>Claim Donation</Text>
+                <TouchableOpacity
+                    style={[styles.claimDonationButton, isClaimed && styles.claimedButton]}
+                    onPress={async() =>{!isClaimed ? await handleClaimDonation() : null}}
+                >
+                    <Text style={styles.claimDonationButtonText}>
+                        {isClaimed ? "Claimed" : "Claim Donation"}
+                    </Text>
                 </TouchableOpacity>
             </View>
         </View>
@@ -126,6 +122,9 @@ const styles = StyleSheet.create({
         padding: 15,
         borderRadius: Dimens.buttonBorderRadius,
         marginTop: 20,
+    },
+    claimedButton: {
+        backgroundColor: Colors.primary_2
     },
     claimDonationButtonText: {
         fontSize: Dimens.buttonText,

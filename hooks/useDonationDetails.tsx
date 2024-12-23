@@ -15,7 +15,7 @@ export function useDonationDetails(donationId: string) {
                 if (docSnapshot.exists()){
                     const data = docSnapshot.data();
                     const donationDetails = {
-                        id: data.id,
+                        id: donationId,
                         foodName: data.foodName,
                         quantity: data.quantity,
                         expirationDate: data.expirationDate.toDate(),
