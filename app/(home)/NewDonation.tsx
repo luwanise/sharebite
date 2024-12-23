@@ -5,6 +5,7 @@ import { CustomTextInput } from "@/components/CustomTextInput";
 import { FoodQuantitySelector } from "@/components/FoodQuantitySelector";
 import { ExpirationDateSelector } from "@/components/NewDonation/ExpirationDateSelector";
 import { ImageSelector } from "@/components/NewDonation/ImageSelector";
+import { auth } from "@/firebaseConfig";
 import { makeDonation } from "@/utils/NewDonation/makeDonation";
 import { router } from "expo-router";
 import { useState } from "react";
@@ -28,7 +29,8 @@ export default function NewDonationScreen() {
         setLocation("");
     }
     const handleNewDonation = async () => {
-        await makeDonation({ foodName, quantity, expirationDate, location, description, image }, setLoading);
+        const donorId = auth.currentUser?.uid;
+        await makeDonation({ foodName, quantity, expirationDate, location, description, image, donorId}, setLoading);
         resetForm();
         router.back();
     }

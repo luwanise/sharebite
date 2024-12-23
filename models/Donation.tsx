@@ -6,4 +6,5 @@ export type Donation = {
     location: string;
     description: string;
     image: string;
+    donorId?: string;
 }
