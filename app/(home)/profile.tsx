@@ -11,7 +11,7 @@ export default function ProfileScreen() {
             <ProfileHeader />
             <View style={styles.profileItemContainer}>
                 <ProfileItem title="Edit Profile" icon="person-outline" onPress={() => router.push("/profile-pages/EditProfile")} />
-                <ProfileItem title="Donations given" icon="gift-outline" onPress={() => {}} />
+                <ProfileItem title="Donations given" icon="gift-outline" onPress={() => router.push("/profile-pages/DonationsGiven")} />
                 <ProfileItem title="Donations claimed" icon="fast-food-outline" onPress={() => {}} />
                 <ProfileItem title="Change Password" icon="key-outline" onPress={() => {}} />
                 <ProfileItem title="Notifications" icon="notifications-outline" onPress={() => {}} />
