@@ -1,5 +1,4 @@
 import { Colors } from "@/assets/Colors";
-import { useLocalSearchParams } from "expo-router";
 import { RefreshControl, ScrollView, StatusBar, StyleSheet, View } from "react-native";
 import { HomePageHeader } from "@/components/HomePageHeader";
 import { ThankYouList } from "@/components/ThankYous/ThankYouList";
