@@ -39,6 +39,18 @@ A simple food donation app that allows users to donate and claim food based on a
 
    This will open the app in the Expo Go app or in a web browser for testing.
 
+## Screenshots
+
+Here are some screenshots of the app:
+
+![Welcome Screen](screenshots/welcome.jpg)
+![Login Screen](screenshots/home.jpg)
+![Signup Screen](screenshots/sign-up.jpg)
+![Home Screen](screenshots/login.jpg)
+![New Donation Screen](screenshots/new-donation.jpg)
+![Claim Donation](screenshots/donation-details.jpg)
+![Profile Screen](screenshots/profile.jpg)
+
 ## Contributing
 
 Feel free to fork the repository and submit pull requests for any improvements or fixes.
