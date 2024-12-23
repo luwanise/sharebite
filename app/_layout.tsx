@@ -27,6 +27,7 @@ export default function RootLayout() {
       <Stack.Screen name="donations/[donation]" options={{ headerShown: false }} />
       <Stack.Screen name="profile-pages/EditProfile" options={{ headerShown: false }} />
       <Stack.Screen name="profile-pages/DonationsGiven" options={{ headerShown: false }} />
+      <Stack.Screen name="profile-pages/DonationsClaimed" options={{ headerShown: false }} />
     </Stack>
   )
 }
